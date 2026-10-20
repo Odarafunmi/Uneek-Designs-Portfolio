@@ -72,7 +72,9 @@ variant (`arch`, `grid`, `type`, `bottle`, `cards`, `disc`, `boxes`, `browser`, 
 `ribbon`, `poster`, `portrait`) is a small composition in the brand palette.
 
 When real photography is ready, swap `<CoverArt />` in `components/cards.tsx` for
-`next/image`; the card markup is already built around a fixed-ratio cover slot.
+`next/image`; the card markup is already built around a fixed-ratio cover slot. The hero
+portrait (`Portrait()` in `components/hero.tsx`) is likewise a placeholder — replace the
+inline SVG with `<Image src="/images/peculiar.jpg" />` inside `.portrait-shell`.
 
 ### Brand assets
 
@@ -94,11 +96,19 @@ the lockup keeps clear space equal to the “U” notch.
 Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 through
 `@theme inline` (so `bg-surface`, `text-muted`, `border-line`, `text-red` etc. work).
 
+- **Hero**: slide 1 is a poster — a full-bleed `DESIGNER` word that dissolves into a
+  portrait container (both masked with a soft bottom fade), the `Portfolio` label, the
+  rotating "I design …" line and one strapline. Everything else about the founder lives
+  on slide 2 (About the founder). No orange: the gradient runs deep red → brand red →
+  bright red, with grey and black/white as the secondary palette.
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
   then remembers the visitor's choice in `localStorage`, with a 300 ms colour transition.
 - **Custom classes** (`.btn`, `.card`, `.shell`, `.giant`, …) are declared inside
   `@layer components`, which keeps Tailwind utilities able to override them.
+- **Counters**: the home-page stats use `components/ui/count-up.tsx`, which counts up
+  once when scrolled into view (~760 ms, ease-out) and shows the final value immediately
+  under `prefers-reduced-motion`.
 - **Motion**: reveal-on-scroll (`components/ui/reveal.tsx`), page transitions
   (`app/template.tsx`), Lenis smooth scroll (`components/smooth-scroll.tsx`), hero
   parallax, and doodles that lean toward the pointer and drift with scroll

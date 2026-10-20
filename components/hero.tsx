@@ -2,9 +2,9 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { site, waLink } from "@/content/site";
 
 const HeroObject = dynamic(
@@ -35,7 +35,7 @@ export function Hero() {
     };
   }, [index, paused, reduced, go]);
 
-  // Rotating list above the headline.
+  // Rotating discipline list in the top bar.
   useEffect(() => {
     if (reduced) return;
     const id = window.setInterval(() => setRotation((r) => r + 1), 2400);
@@ -45,35 +45,19 @@ export function Hero() {
   return (
     <section
       aria-label="Introduction"
-      className="relative isolate overflow-hidden pb-16 pt-24 md:pb-20 md:pt-28"
+      className="relative isolate overflow-hidden pb-10 pt-24 md:pb-12 md:pt-24"
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      {/* Gradient mesh */}
       <div className="mesh mesh-soft">
         <div className="mesh-blob" />
         <div className="mesh-blob" />
         <div className="mesh-blob" />
       </div>
 
-      {/* Top meta row */}
-      <div className="shell relative z-10 flex flex-wrap items-center justify-between gap-4">
-        <p className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-muted">
-          <span className="availability-dot" />
-          {site.availability}
-        </p>
-        <p className="font-hand text-lg text-muted md:text-xl">
-          {site.role} · {site.location}
-        </p>
-      </div>
-
-      {/* Slides */}
-      <div
-        className="relative z-10 mt-8 min-h-[420px] md:mt-10 md:min-h-[470px]"
-        style={{ touchAction: "pan-y" }}
-      >
+      <div className="relative z-10 md:min-h-[620px]" style={{ touchAction: "pan-y" }}>
         <AnimatePresence initial={false} mode="wait">
           {index === 0 ? (
             <motion.div
@@ -116,7 +100,7 @@ export function Hero() {
       </div>
 
       {/* Controls */}
-      <div className="shell relative z-20 mt-10 flex items-center justify-between gap-6">
+      <div className="shell relative z-20 mt-7 flex items-center justify-between gap-6">
         <div className="flex items-center gap-2.5">
           {[0, 1].map((i) => (
             <button
@@ -162,64 +146,71 @@ export function Hero() {
   );
 }
 
+/* ---------------------------------------------------------------------------
+   Slide 1 — the poster. One giant word, one portrait, almost nothing else.
+--------------------------------------------------------------------------- */
 function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean }) {
   const current = ROTATING[rotation % ROTATING.length];
 
   return (
     <div className="relative">
-      <div className="shell">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div className="flex items-center gap-3 overflow-hidden">
-            <span className="eyebrow shrink-0">I design</span>
-            <span className="relative block h-7 overflow-hidden md:h-8">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={current}
-                  initial={reduced ? undefined : { y: "110%", opacity: 0 }}
-                  animate={reduced ? undefined : { y: "0%", opacity: 1 }}
-                  exit={reduced ? undefined : { y: "-110%", opacity: 0 }}
-                  transition={{ duration: 0.5, ease: EASE }}
-                  className="block font-display text-[19px] font-medium tracking-[-0.03em] text-red md:text-[22px]"
-                >
-                  {current}
-                </motion.span>
-              </AnimatePresence>
-            </span>
-          </div>
+      <div className="shell relative z-30 flex items-center justify-between gap-4">
+        <span className="eyebrow">Portfolio</span>
 
-          <p className="max-w-[290px] text-[13px] leading-relaxed text-muted md:text-right">
-            Six years of branding, campaigns and code for brands that would rather be
-            remembered than liked.
-          </p>
-        </div>
+        <span className="flex items-center gap-2.5">
+          <span className="eyebrow hidden shrink-0 sm:inline">I design</span>
+          <span className="relative block h-5 overflow-hidden text-right sm:text-left md:h-7">
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={current}
+                initial={reduced ? undefined : { y: "115%", opacity: 0 }}
+                animate={reduced ? undefined : { y: "0%", opacity: 1 }}
+                exit={reduced ? undefined : { y: "-115%", opacity: 0 }}
+                transition={{ duration: 0.5, ease: EASE }}
+                className="block whitespace-nowrap font-display text-[13px] font-medium tracking-[-0.02em] text-red-ink md:text-[17px]"
+              >
+                {current}
+              </motion.span>
+            </AnimatePresence>
+          </span>
+        </span>
       </div>
 
-      {/* Giant word */}
-      <div className="relative mt-4 select-none md:mt-2">
+      {/* Giant word: full-bleed, dissolving into the portrait below */}
+      <div className="relative mt-5 md:mt-7">
         <motion.h1
-          initial={reduced ? undefined : { x: -18, opacity: 0 }}
-          animate={reduced ? undefined : { x: 0, opacity: 1 }}
-          transition={{ duration: 0.9, ease: EASE, delay: 0.06 }}
-          className="giant whitespace-nowrap text-center text-ink"
-          style={{ fontSize: "clamp(2.9rem, 16.8vw, 15.6rem)" }}
+          initial={reduced ? undefined : { y: -18, opacity: 0 }}
+          animate={reduced ? undefined : { y: 0, opacity: 1 }}
+          transition={{ duration: 0.85, ease: EASE, delay: 0.05 }}
+          className="designer-word"
         >
-          Portfolio
+          Designer
+          <span className="sr-only">
+            {" "}
+            — {site.owner}, {site.role} in {site.location}
+          </span>
         </motion.h1>
-
       </div>
 
-      <div className="shell mt-6 flex flex-col gap-6 md:mt-8 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-md">
-          <p className="hand text-2xl leading-tight text-ink md:text-[28px]">
-            Big ideas, tidy systems, red everything.
-          </p>
-          <p className="mt-2 text-[14px] leading-relaxed text-muted">
-            I&apos;m {site.owner} — a brand and product designer building identities that
-            small teams can actually run.
-          </p>
-        </div>
+      {/* Portrait container, tucked into the faded base of the word */}
+      <div className="relative z-20 -mt-[6vw] flex justify-center md:-mt-[3.2vw]">
+        <motion.div
+          initial={reduced ? undefined : { y: 40, opacity: 0, scale: 0.97 }}
+          animate={reduced ? undefined : { y: 0, opacity: 1, scale: 1 }}
+          transition={{ duration: 0.95, ease: EASE, delay: 0.14 }}
+          className="portrait-shell fade-bottom w-[236px] sm:w-[286px] md:w-[330px]"
+          style={{ height: "clamp(250px, min(37vw, 42vh), 395px)" }}
+        >
+          <Portrait />
+        </motion.div>
+      </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+      {/* The only other copy on the slide */}
+      <div className="shell relative z-30 mt-5 flex flex-col items-center gap-5 text-center md:mt-7 md:flex-row md:items-end md:justify-between md:text-left">
+        <p className="hand text-[26px] leading-none text-ink md:text-[32px]">
+          Big ideas, tidy systems
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
           <Link href="/work" className="btn btn-primary">
             See the work
             <ArrowUpRight size={16} />
@@ -234,82 +225,118 @@ function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean })
           </a>
         </div>
       </div>
-
-      <div className="shell mt-10 hidden items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-muted md:flex">
-        <ArrowDown size={13} className="animate-bounce" />
-        Scroll to explore
-      </div>
     </div>
   );
 }
 
+/* ---------------------------------------------------------------------------
+   Slide 2 — About the founder. Everything the poster deliberately leaves out.
+--------------------------------------------------------------------------- */
 function SlideTwo({ reduced }: { reduced: boolean }) {
+  const facts = useMemo(
+    () => [
+      { value: `${site.yearsExperience} yrs`, label: "Running the studio" },
+      { value: `${site.projectsDelivered}+`, label: "Projects shipped" },
+      { value: "12", label: "Brands on retainer" },
+    ],
+    [],
+  );
+
   return (
-    <div className="shell relative">
-      {/* Giant DESIGNER text sits behind the arch */}
-      <div className="relative mx-auto max-w-[1100px]">
-        <motion.h1
-          initial={reduced ? undefined : { x: 24, opacity: 0 }}
-          animate={reduced ? undefined : { x: 0, opacity: 1 }}
-          transition={{ duration: 0.9, ease: EASE, delay: 0.04 }}
-          aria-label={`${site.role} — ${site.owner}`}
-          className="giant pointer-events-none absolute inset-x-0 top-[42%] z-0 select-none whitespace-nowrap text-center text-ink"
-          style={{ fontSize: "clamp(2.9rem, 18vw, 16.4rem)" }}
-        >
-          Designer
-        </motion.h1>
+    <div className="shell relative z-10">
 
-        <div className="absolute right-[3%] top-[6%] z-0 hidden w-[260px] xl:block">
-          <HeroObject className="aspect-square w-full" />
-        </div>
-
-        <div className="relative z-10 flex flex-col items-center pt-2 md:pt-0">
-          <motion.div
-            initial={reduced ? undefined : { y: 34, opacity: 0, scale: 0.97 }}
-            animate={reduced ? undefined : { y: 0, opacity: 1, scale: 1 }}
-            transition={{ duration: 0.95, ease: EASE, delay: 0.12 }}
-            className="arch arch-grad relative w-[248px] shadow-[0_40px_90px_-40px_rgba(238,3,3,0.75)] sm:w-[292px] md:w-[330px]"
-            style={{ height: "clamp(320px, 40vw, 430px)" }}
+      <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+        <div>
+          <motion.p
+            initial={reduced ? undefined : { opacity: 0, y: 12 }}
+            animate={reduced ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE }}
+            className="eyebrow flex items-center gap-2"
           >
-            <div className="absolute inset-0 opacity-30 mix-blend-overlay [background-image:radial-gradient(circle_at_30%_10%,#fff,transparent_60%)]" />
-            <Portrait />
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 to-transparent" />
-            <div className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-full bg-white/15 px-3.5 py-2 backdrop-blur-md">
-              <span className="text-[12px] font-medium tracking-[-0.01em] text-white">
-                {site.owner}
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.16em] text-white/80">
-                Founder
-              </span>
-            </div>
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-red" />
+            About the founder
+          </motion.p>
+
+          <motion.h2
+            initial={reduced ? undefined : { opacity: 0, y: 18 }}
+            animate={reduced ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.05 }}
+            className="h1 mt-4"
+          >
+            Peculiar
+          </motion.h2>
+
+          <motion.p
+            initial={reduced ? undefined : { opacity: 0, y: 14 }}
+            animate={reduced ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+            className="hand mt-3 text-2xl text-muted md:text-[26px]"
+          >
+            {site.role} · {site.location}
+          </motion.p>
+
+          <motion.div
+            initial={reduced ? undefined : { opacity: 0, y: 14 }}
+            animate={reduced ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.16 }}
+            className="mt-6 max-w-xl space-y-4 text-[14.5px] leading-relaxed text-muted md:text-[15px]"
+          >
+            <p>
+              Six years of branding, campaigns and code for brands that would rather be
+              remembered than liked.
+            </p>
+            <p>
+              I build systems, not one-off files — identity, adverts, social and the
+              occasional website, all pulled from the same visual logic and documented
+              well enough for a small team to run.
+            </p>
           </motion.div>
 
-          <div className="mt-8 flex flex-col items-center gap-4 text-center md:mt-10">
-            <motion.p
-              initial={reduced ? undefined : { y: 16, opacity: 0 }}
-              animate={reduced ? undefined : { y: 0, opacity: 1 }}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.28 }}
-              className="max-w-lg text-[14px] leading-relaxed text-muted md:text-[15px]"
-            >
-              Brand identity, product adverts and social systems — designed in Lagos,
-              shipped everywhere.
-            </motion.p>
-            <motion.div
-              initial={reduced ? undefined : { y: 16, opacity: 0 }}
-              animate={reduced ? undefined : { y: 0, opacity: 1 }}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.36 }}
-              className="flex flex-wrap items-center justify-center gap-2.5"
-            >
-              <Link href="/services" className="btn btn-primary">
-                Book a service
-                <ArrowUpRight size={16} />
-              </Link>
-              <Link href="/contact" className="btn btn-outline">
-                Say hello
-              </Link>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={reduced ? undefined : { opacity: 0, y: 14 }}
+            animate={reduced ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.22 }}
+            className="mt-7 flex flex-wrap items-center gap-2.5"
+          >
+            <Link href="/services" className="btn btn-primary">
+              Book a service
+              <ArrowUpRight size={16} />
+            </Link>
+            <Link href="/contact" className="btn btn-outline">
+              Say hello
+            </Link>
+          </motion.div>
         </div>
+
+        <motion.div
+          initial={reduced ? undefined : { opacity: 0, y: 20 }}
+          animate={reduced ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
+          className="relative"
+        >
+          <div className="pointer-events-none absolute -right-10 -top-14 z-20 hidden w-[150px] xl:block">
+            <HeroObject className="aspect-square w-full" />
+          </div>
+
+          <div className="card relative overflow-hidden p-6">
+            <div className="pointer-events-none absolute -right-16 -top-20 h-52 w-52 rounded-full opacity-25 blur-3xl [background:var(--grad-brand)]" />
+            <p className="relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-muted">
+              <span className="availability-dot" />
+              {site.availability}
+            </p>
+
+            <dl className="relative mt-6 divide-y divide-line">
+              {facts.map((fact) => (
+                <div key={fact.label} className="flex items-baseline justify-between gap-4 py-3">
+                  <dt className="text-[12.5px] text-muted">{fact.label}</dt>
+                  <dd className="display text-[1.6rem] leading-none">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <p className="hand relative mt-5 text-xl text-red-ink">{site.responseTime}</p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -330,17 +357,20 @@ function Portrait() {
           <stop offset="100%" stopColor="#120C0A" />
         </linearGradient>
         <linearGradient id="rim" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#FFB020" stopOpacity="0" />
-          <stop offset="100%" stopColor="#FFE3DC" stopOpacity="0.55" />
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
+          <stop offset="100%" stopColor="#FFE1E1" stopOpacity="0.6" />
         </linearGradient>
       </defs>
 
       {/* shoulders / turtleneck */}
+      <path d="M30 500c6-92 48-150 114-170h112c66 20 108 78 114 170Z" fill="url(#figure)" />
       <path
-        d="M30 500c6-92 48-150 114-170h112c66 20 108 78 114 170Z"
-        fill="url(#figure)"
+        d="M148 340c16 22 34 34 52 34s36-12 52-34"
+        stroke="#FFE1E1"
+        strokeOpacity="0.16"
+        strokeWidth="3"
+        fill="none"
       />
-      <path d="M148 340c16 22 34 34 52 34s36-12 52-34" stroke="#FFE3DC" strokeOpacity="0.16" strokeWidth="3" fill="none" />
 
       {/* neck */}
       <path d="M174 280h52v66c0 14-52 14-52 0Z" fill="#1B1210" />
@@ -358,7 +388,7 @@ function Portrait() {
         <ellipse cx="200" cy="196" rx="76" ry="70" />
       </g>
 
-      {/* face plane, lifted slightly out of the hair */}
+      {/* face plane */}
       <path
         d="M200 146c30 0 52 26 52 62 0 40-23 72-52 72s-52-32-52-72c0-36 22-62 52-62Z"
         fill="#2C2019"
@@ -374,9 +404,9 @@ function Portrait() {
       />
 
       {/* glasses */}
-      <g stroke="#FFB020" strokeOpacity="0.9" strokeWidth="4" fill="none" strokeLinecap="round">
-        <rect x="154" y="188" width="42" height="32" rx="12" fill="#FFB020" fillOpacity="0.14" />
-        <rect x="204" y="188" width="42" height="32" rx="12" fill="#FFB020" fillOpacity="0.14" />
+      <g stroke="#FFE1E1" strokeOpacity="0.92" strokeWidth="4" fill="none" strokeLinecap="round">
+        <rect x="154" y="188" width="42" height="32" rx="12" fill="#FFE1E1" fillOpacity="0.14" />
+        <rect x="204" y="188" width="42" height="32" rx="12" fill="#FFE1E1" fillOpacity="0.14" />
         <path d="M196 202h8" />
         <path d="M154 198l-12-4M246 198l12-4" />
       </g>
@@ -384,7 +414,7 @@ function Portrait() {
       {/* smile */}
       <path
         d="M186 246c9 8 19 8 28 0"
-        stroke="#FFE3DC"
+        stroke="#FFE1E1"
         strokeOpacity="0.55"
         strokeWidth="3.5"
         strokeLinecap="round"
@@ -392,8 +422,8 @@ function Portrait() {
       />
 
       {/* earring + collar detail */}
-      <circle cx="146" cy="238" r="4.5" fill="#FFB020" fillOpacity="0.85" />
-      <path d="M170 378h60" stroke="#FFE3DC" strokeOpacity="0.14" strokeWidth="2" />
+      <circle cx="146" cy="238" r="4.5" fill="#FFE1E1" fillOpacity="0.85" />
+      <path d="M170 378h60" stroke="#FFE1E1" strokeOpacity="0.14" strokeWidth="2" />
     </svg>
   );
 }

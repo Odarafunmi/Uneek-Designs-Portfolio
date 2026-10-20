@@ -202,7 +202,7 @@ export function ServiceCard({ service }: { service: Service }) {
       className={`card card-hover relative flex h-full flex-col overflow-hidden ${
         featured ? "border-transparent text-white" : ""
       }`}
-      style={featured ? { background: "linear-gradient(150deg,#EE0303 0%,#F03208 42%,#FF5A1F 78%,#FF8A1F 100%)", boxShadow: "0 30px 70px -40px rgba(238,3,3,0.9)" } : undefined}
+      style={featured ? { background: "linear-gradient(152deg,#950000 0%,#C40000 30%,#EE0303 66%,#FF3B3B 100%)", boxShadow: "0 30px 70px -40px rgba(238,3,3,0.9)" } : undefined}
     >
       {featured && (
         <div className="pointer-events-none absolute inset-0 opacity-30 mix-blend-overlay [background-image:radial-gradient(circle_at_80%_0%,#fff,transparent_55%)]" />

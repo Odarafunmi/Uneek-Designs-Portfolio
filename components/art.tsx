@@ -50,8 +50,8 @@ export function CoverArt({
       accent: "#EE0303",
     },
     ink: { bg: "#101010", fg: "#FFFFFF", soft: "#1E1E1E", line: "rgba(255,255,255,0.18)", accent: "#EE0303" },
-    red: { bg: "#EE0303", fg: "#FFFFFF", soft: "rgba(255,255,255,0.16)", line: "rgba(255,255,255,0.4)", accent: "#FFB020" },
-    grad: { bg: "#EE0303", fg: "#FFFFFF", soft: "rgba(255,255,255,0.18)", line: "rgba(255,255,255,0.42)", accent: "#FFB020" },
+    red: { bg: "#EE0303", fg: "#FFFFFF", soft: "rgba(255,255,255,0.16)", line: "rgba(255,255,255,0.4)", accent: "#FF7A7A" },
+    grad: { bg: "#EE0303", fg: "#FFFFFF", soft: "rgba(255,255,255,0.18)", line: "rgba(255,255,255,0.42)", accent: "#FF7A7A" },
     blush: { bg: "var(--surface-2)", fg: "var(--text)", soft: "var(--surface)", line: "var(--border-strong)", accent: "#EE0303" },
   }[resolved];
 
@@ -73,9 +73,9 @@ export function CoverArt({
       >
         <defs>
           <linearGradient id={gradId} x1="8%" y1="0%" x2="92%" y2="100%">
-            <stop offset="0%" stopColor="#EE0303" />
-            <stop offset="55%" stopColor="#FF5A1F" />
-            <stop offset="100%" stopColor="#FFB020" />
+            <stop offset="0%" stopColor="#950000" />
+            <stop offset="52%" stopColor="#EE0303" />
+            <stop offset="100%" stopColor="#FF4A4A" />
           </linearGradient>
           <filter id={blurId} x="-40%" y="-40%" width="180%" height="180%">
             <feGaussianBlur stdDeviation="16" />

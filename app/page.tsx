@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { CtaBand } from "@/components/ui/cta-band";
 import { CategoryCard, PostCard, ProjectCard, ServiceCard } from "@/components/cards";
 import { CoverArt } from "@/components/art";
+import { CountUp } from "@/components/ui/count-up";
 import { categories, featuredProjects, projectsByCategory, testimonials } from "@/content/work";
 import { services } from "@/content/services";
 import { sortedPosts } from "@/content/posts";
@@ -107,14 +108,21 @@ export default function HomePage() {
             </Reveal>
 
             {[
-              { value: `${site.projectsDelivered}+`, label: "Projects shipped" },
-              { value: `${site.yearsExperience} yrs`, label: "Running the studio" },
-              { value: "12", label: "Brands on retainer" },
-              { value: "4.9", label: "Average client rating" },
+              { value: site.projectsDelivered, suffix: "+", label: "Projects shipped" },
+              { value: site.yearsExperience, suffix: " yrs", label: "Running the studio" },
+              { value: 12, suffix: "", label: "Brands on retainer" },
+              { value: 4.9, suffix: "", decimals: 1, label: "Average client rating" },
             ].map((stat, index) => (
               <Reveal key={stat.label} delay={0.06 * index}>
                 <div className="card flex h-full flex-col justify-between p-5">
-                  <p className="display text-[2.15rem] leading-none">{stat.value}</p>
+                  <p className="display text-[2.15rem] leading-none tabular-nums">
+                    <CountUp
+                      value={stat.value}
+                      suffix={stat.suffix}
+                      decimals={stat.decimals ?? 0}
+                      duration={760}
+                    />
+                  </p>
                   <p className="mt-2 text-[12.5px] text-muted">{stat.label}</p>
                 </div>
               </Reveal>

@@ -85,7 +85,7 @@ The system I use on client work:
 
 - **70% neutral.** Paper, charcoal, black, white. This is where the reading happens.
 - **25% red.** Buttons, marks, one headline per view, the thing you want tapped.
-- **5% accent.** The orange and amber in the gradient. Treat it like a highlight, not a colour.
+- **5% accent.** The bright red highlight in the gradient. Treat it like a highlight, not a colour.
 
 Break the ratio on purpose — one full-bleed red section on a page — and it feels like an event. Break it everywhere and it feels like a warning label.
 
@@ -99,7 +99,7 @@ Red text on white fails at body sizes. Red text on black is worse. So the rules 
 
 ## Why gradients
 
-A flat red is a decision. A red-to-amber gradient is a mood — heat, movement, something being made. Used in one place per screen, it reads as energy. Used as a background for a whole site, it reads as a template.
+A flat red is a decision. A deep-to-bright red gradient is a mood — heat, movement, something being made. Used in one place per screen, it reads as energy. Used as a background for a whole site, it reads as a template.
 
 Restraint is the design. The colour is just the proof.`,
   },

@@ -20,7 +20,7 @@ type Doodle = {
 
 const DOODLES: Doodle[] = [
   { shape: "star", x: 4, y: 30, size: 30, rotate: -12, depth: 1.5, red: true, hideOnMobile: true },
-  { shape: "squiggle", x: 87, y: 12, size: 74, rotate: 8, depth: 0.8 },
+  { shape: "squiggle", x: 91, y: 10, size: 68, rotate: 8, depth: 0.8, hideOnMobile: true },
   { shape: "arrow", x: 91, y: 47, size: 60, rotate: -24, depth: 1.2 },
   { shape: "circle", x: 3, y: 63, size: 78, rotate: 0, depth: 0.6, hideOnMobile: true },
   { shape: "asterisk", x: 83, y: 74, size: 38, rotate: 14, depth: 1.8, red: true },

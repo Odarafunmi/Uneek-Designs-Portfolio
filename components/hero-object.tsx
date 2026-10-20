@@ -42,7 +42,7 @@ function Knot() {
       </mesh>
       <mesh rotation={[Math.PI / 2.6, 0.6, 0.3]}>
         <torusGeometry args={[1.86, 0.006, 8, 160]} />
-        <meshStandardMaterial color="#FFB020" roughness={0.5} metalness={0.6} />
+        <meshStandardMaterial color="#FF3B3B" roughness={0.5} metalness={0.6} />
       </mesh>
     </group>
   );
@@ -56,8 +56,8 @@ function Fallback({ className }: { className?: string }) {
         <defs>
           <linearGradient id="fk" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#EE0303" />
-            <stop offset="60%" stopColor="#FF5A1F" />
-            <stop offset="100%" stopColor="#FFB020" />
+            <stop offset="60%" stopColor="#C40000" />
+            <stop offset="100%" stopColor="#FF3B3B" />
           </linearGradient>
         </defs>
         <g fill="none" strokeLinecap="round">
@@ -115,8 +115,8 @@ export function HeroObject({ className = "" }: { className?: string }) {
         >
           <ambientLight intensity={0.65} />
           <directionalLight position={[3, 4, 5]} intensity={2.1} color="#ffffff" />
-          <directionalLight position={[-4, -2, 2]} intensity={1.1} color="#FF5A1F" />
-          <pointLight position={[0, -3, 2]} intensity={1.4} color="#FFB020" />
+          <directionalLight position={[-4, -2, 2]} intensity={1.1} color="#FF3B3B" />
+          <pointLight position={[0, -3, 2]} intensity={1.2} color="#FF8A8A" />
           <Knot />
         </Canvas>
       ) : (

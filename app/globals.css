@@ -19,11 +19,10 @@
   color-scheme: light;
 
   --red: #ee0303;
-  --red-deep: #b50202;
+  --red-deep: #a80000;
+  --red-bright: #ff3b3b;
   --red-ink: #b50202;
-  --orange: #ff5a1f;
-  --amber: #ffb020;
-  --blush: #ffe3dc;
+  --blush: #ffe1e1;
   --charcoal: #484848;
 
   --bg: #ffffff;
@@ -34,8 +33,9 @@
   --border: rgba(0, 0, 0, 0.08);
   --border-strong: rgba(0, 0, 0, 0.16);
 
-  --grad-brand: linear-gradient(135deg, #ee0303 0%, #ff5a1f 55%, #ffb020 100%);
-  --grad-soft: linear-gradient(135deg, rgba(238, 3, 3, 0.14) 0%, rgba(255, 90, 31, 0.1) 55%, rgba(255, 176, 32, 0.1) 100%);
+  --grad-brand: linear-gradient(135deg, #950000 0%, #ee0303 56%, #ff3b3b 100%);
+  --grad-red-deep: linear-gradient(180deg, #ff3b3b 0%, #ee0303 46%, #a80000 100%);
+  --grad-soft: linear-gradient(135deg, rgba(238, 3, 3, 0.16) 0%, rgba(184, 2, 2, 0.1) 55%, rgba(255, 59, 59, 0.08) 100%);
   --shadow-card: 0 1px 2px rgba(16, 12, 10, 0.04), 0 12px 32px -18px rgba(16, 12, 10, 0.22);
   --shadow-lift: 0 2px 4px rgba(16, 12, 10, 0.05), 0 30px 60px -30px rgba(16, 12, 10, 0.35);
   --nav-bg: rgba(255, 255, 255, 0.74);
@@ -55,7 +55,7 @@
   --border: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.2);
 
-  --grad-soft: linear-gradient(135deg, rgba(238, 3, 3, 0.3) 0%, rgba(255, 90, 31, 0.16) 55%, rgba(255, 176, 32, 0.1) 100%);
+  --grad-soft: linear-gradient(135deg, rgba(238, 3, 3, 0.32) 0%, rgba(158, 0, 0, 0.2) 55%, rgba(255, 59, 59, 0.12) 100%);
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px -18px rgba(0, 0, 0, 0.8);
   --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 30px 60px -30px rgba(0, 0, 0, 0.9);
   --nav-bg: rgba(18, 18, 18, 0.72);
@@ -72,8 +72,7 @@
   --color-red: var(--red);
   --color-red-deep: var(--red-deep);
   --color-red-ink: var(--red-ink);
-  --color-orange: var(--orange);
-  --color-amber: var(--amber);
+  --color-red-bright: var(--red-bright);
   --color-blush: var(--blush);
   --color-charcoal: var(--charcoal);
 
@@ -291,7 +290,7 @@
   .btn-grad {
     background: var(--grad-brand);
     color: #fff;
-    box-shadow: 0 10px 30px -14px rgba(255, 90, 31, 0.75);
+    box-shadow: 0 10px 30px -14px rgba(238, 3, 3, 0.72);
   }
 
   .btn-grad:hover {
@@ -448,7 +447,7 @@
     height: 40vw;
     top: 4%;
     right: -6%;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 90, 31, 0.7), rgba(255, 176, 32, 0) 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(255, 59, 59, 0.55), rgba(255, 59, 59, 0) 70%);
     animation: drift-b 24s ease-in-out infinite alternate;
   }
 
@@ -457,7 +456,7 @@
     height: 32vw;
     bottom: -16%;
     left: 28%;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 176, 32, 0.6), rgba(255, 227, 220, 0) 70%);
+    background: radial-gradient(circle at 50% 50%, rgba(158, 0, 0, 0.5), rgba(255, 225, 225, 0) 70%);
     animation: drift-c 21s ease-in-out infinite alternate;
   }
 
@@ -504,7 +503,77 @@
   }
 
   .arch-grad {
-    background: var(--grad-brand);
+    background: var(--grad-red-deep);
+  }
+
+  /* Giant word that spans the full viewport width and dissolves at the base */
+  .designer-word {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(3.2rem, 21.4vw, 30rem);
+    line-height: 0.74;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-align: center;
+    color: var(--text);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 64%,
+      rgba(0, 0, 0, 0.9) 76%,
+      rgba(0, 0, 0, 0.48) 88%,
+      rgba(0, 0, 0, 0.12) 96%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 64%,
+      rgba(0, 0, 0, 0.9) 76%,
+      rgba(0, 0, 0, 0.48) 88%,
+      rgba(0, 0, 0, 0.12) 96%,
+      transparent 100%
+    );
+  }
+
+  /* Soft dissolve at the base of the portrait container */
+  .fade-bottom {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 80%,
+      rgba(0, 0, 0, 0.88) 89%,
+      rgba(0, 0, 0, 0.5) 95%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 80%,
+      rgba(0, 0, 0, 0.88) 89%,
+      rgba(0, 0, 0, 0.5) 95%,
+      transparent 100%
+    );
+  }
+
+  .portrait-shell {
+    position: relative;
+    overflow: hidden;
+    border-radius: 999px 999px 24px 24px;
+    background: var(--grad-red-deep);
+    box-shadow: 0 50px 90px -50px rgba(158, 0, 0, 0.7);
+  }
+
+  .portrait-shell::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(70% 55% at 26% 6%, rgba(255, 255, 255, 0.3), transparent 62%),
+      radial-gradient(60% 45% at 80% 92%, rgba(0, 0, 0, 0.28), transparent 70%);
+    mix-blend-mode: soft-light;
   }
 
   /* ---------------------------------------------------------------------------
