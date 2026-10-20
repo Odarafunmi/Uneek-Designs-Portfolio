@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useBooking } from "@/components/providers/booking";
 import { Reveal } from "./reveal";
 import { site } from "@/content/site";
+import { HeroObjectLazy } from "@/components/hero-object-lazy";
 
 export function CtaBand() {
   const { openBooking } = useBooking();
@@ -15,6 +16,9 @@ export function CtaBand() {
         <div className="relative overflow-hidden rounded-[32px] border border-line bg-[#0B0B0B] px-6 py-16 text-white md:px-14 md:py-20">
           <div className="pointer-events-none absolute inset-0 opacity-90 [background:radial-gradient(80%_120%_at_80%_120%,#EE0303_0%,rgba(238,3,3,0)_55%),radial-gradient(60%_90%_at_10%_-10%,rgba(238,3,3,0.55),transparent_62%)]" />
           <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-red-bright/20 blur-[90px]" />
+          <div className="pointer-events-none absolute -bottom-16 right-6 hidden h-52 w-52 opacity-90 lg:block xl:h-60 xl:w-60">
+            <HeroObjectLazy />
+          </div>
 
           <div className="relative grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-end">
             <div>

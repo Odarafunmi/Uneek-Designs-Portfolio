@@ -96,11 +96,18 @@ the lockup keeps clear space equal to the “U” notch.
 Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 through
 `@theme inline` (so `bg-surface`, `text-muted`, `border-line`, `text-red` etc. work).
 
-- **Hero**: slide 1 is a poster — a full-bleed `DESIGNER` word that dissolves into a
-  portrait container (both masked with a soft bottom fade), the `Portfolio` label, the
-  rotating "I design …" line and one strapline. Everything else about the founder lives
-  on slide 2 (About the founder). No orange: the gradient runs deep red → brand red →
-  bright red, with grey and black/white as the secondary palette.
+- **Hero**: two slides, both built to the reference screenshots.
+  - *Slide 1 — the poster (first reference, no photo).* Small `Portfolio` label, an
+    "Available for work" pill, the headline "Brand & UI/UX Designer based in Lagos" on the
+    left, the micro-copy + rotating "I design …" line + Say hello button on the right, and
+    a giant `DESIGNER` anchored to the bottom of the viewport that dissolves upward —
+    clipped at the base like the reference.
+  - *Slide 2 — the founder (second reference).* Portrait inside a red arch, a huge ghosted
+    "PECULIAR" behind it, floating discipline pills (Brand identity / Product design /
+    Social media) and glass stat cards that count up, with "Hey, I'm Peculiar." + the
+    discipline headline bottom-left and CTAs bottom-right.
+  - Both slides fill `100svh` and share the same height, so switching never shifts the page.
+  - No orange: gradients run deep red → brand red → bright red, grey + black/white secondary.
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
   then remembers the visitor's choice in `localStorage`, with a 300 ms colour transition.
