@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { CoverArt } from "@/components/art";
+import { WorkImage } from "@/components/ui/work-image";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Reveal } from "@/components/ui/reveal";
 import { categories, projects, projectsByCategory } from "@/content/work";
@@ -103,19 +102,13 @@ export default async function ProjectPage({
         <Reveal>
           <div className="shell">
             <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] border border-line">
-              {project.cover ? (
-                <Image
-                  src={project.cover}
-                  alt={project.title}
-                  fill
-                  priority
-                  unoptimized
-                  sizes="(min-width: 1200px) 1200px, 100vw"
-                  className="object-cover"
-                />
-              ) : (
-                <CoverArt variant={project.art} label={project.title} />
-              )}
+              <WorkImage
+                src={project.cover}
+                variant={project.art}
+                label={project.title}
+                priority
+                sizes="(min-width: 1200px) 1200px, 100vw"
+              />
             </div>
           </div>
         </Reveal>
@@ -143,13 +136,11 @@ export default async function ProjectPage({
                     key={shot}
                     className="relative aspect-[4/5] overflow-hidden rounded-[20px] border border-line bg-surface"
                   >
-                    <Image
+                    <WorkImage
                       src={shot}
-                      alt={`${project.title} — detail ${i + 1}`}
-                      fill
-                      unoptimized
+                      variant={project.art}
+                      label={`${project.title} — detail ${i + 1}`}
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-cover"
                     />
                   </div>
                 ))}

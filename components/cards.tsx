@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import { CoverArt } from "@/components/art";
+import { WorkImage } from "@/components/ui/work-image";
 import { useBooking } from "@/components/providers/booking";
 import type {
   ArtVariant,
@@ -17,42 +16,6 @@ import type {
 } from "@/content/types";
 import { formatDate } from "@/content/posts";
 
-
-/**
- * Card artwork: uses the real portfolio image when one is supplied in the content
- * files, otherwise falls back to the generated SVG cover.
- */
-function Cover({
-  src,
-  variant,
-  label,
-  seed,
-  sizes,
-}: {
-  src?: string;
-  variant: ArtVariant;
-  label: string;
-  seed?: number;
-  sizes: string;
-}) {
-  // If a hosted cover fails to load (private folder, offline) fall back to the
-  // generated artwork rather than showing a broken image.
-  const [failed, setFailed] = useState(false);
-
-  if (!src || failed) return <CoverArt variant={variant} label={label} seed={seed} />;
-
-  return (
-    <Image
-      src={src}
-      alt={label}
-      fill
-      unoptimized
-      sizes={sizes}
-      onError={() => setFailed(true)}
-      className="object-cover"
-    />
-  );
-}
 
 const CARD_SIZES = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 
@@ -113,7 +76,7 @@ export function CategoryCard({
       >
         <div className="relative aspect-[5/4] overflow-hidden">
           <div className="zoom-img relative h-full w-full">
-            <Cover
+            <WorkImage
               src={category.cover}
               variant={category.art}
               label={category.name}
@@ -156,7 +119,7 @@ export function ProjectCard({
     <>
       <div className="relative aspect-[4/5] overflow-hidden">
         <div className="zoom-img relative h-full w-full">
-          <Cover
+          <WorkImage
             src={project.cover}
             variant={project.art}
             label={project.title}
@@ -215,7 +178,7 @@ export function WebProjectCard({ project, index = 0 }: { project: WebProject; in
       <article className="card card-hover group flex h-full flex-col overflow-hidden">
         <div className="relative aspect-[16/10] overflow-hidden">
           <div className="zoom-img relative h-full w-full">
-            <Cover
+            <WorkImage
               src={project.cover}
               variant={project.art}
               label={project.title}
