@@ -7,6 +7,55 @@ import { site, waLink } from "@/content/site";
 
 const HINT = "Tap it. I'm on the other side.";
 
+/**
+ * A hand-drawn connector that unspools from the button and carries a pulse
+ * outward. It only draws while the button is hovered, and it flips for the
+ * left-hand side so the ink leaves the button in both directions.
+ */
+function Connector({ side }: { side: "left" | "right" }) {
+  const flip = side === "left";
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 150 90"
+      fill="none"
+      className={`connect-link pointer-events-none absolute top-1/2 hidden h-[90px] w-[150px] -translate-y-1/2 md:block ${
+        flip ? "right-full mr-2 scale-x-[-1]" : "left-full ml-2"
+      }`}
+    >
+      {/* the wire: a loose travelling curve */}
+      <path
+        className="connect-wire"
+        d="M2 58 C 26 58, 30 30, 52 30 S 84 52, 104 40 S 128 20, 146 24"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        pathLength={1}
+      />
+      {/* the little spark at the far end */}
+      <path
+        className="connect-spark"
+        d="M146 14 V 34 M136 24 H 156"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      {/* ink nodes the pulse passes */}
+      <circle className="connect-node" style={{ transitionDelay: "180ms" }} cx="52" cy="30" r="3" fill="currentColor" />
+      <circle className="connect-node" style={{ transitionDelay: "360ms" }} cx="104" cy="40" r="3" fill="currentColor" />
+      {/* the pulse: a lit segment of the same wire, travelling outward */}
+      <path
+        className="connect-pulse"
+        d="M2 58 C 26 58, 30 30, 52 30 S 84 52, 104 40 S 128 20, 146 24"
+        stroke="currentColor"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        pathLength={100}
+      />
+    </svg>
+  );
+}
+
 export function ConnectButton() {
   const reduced = useReducedMotion();
   const [pressed, setPressed] = useState(false);
@@ -15,7 +64,9 @@ export function ConnectButton() {
     <div className="flex flex-col items-center">
       <p className="hand mb-5 text-center text-2xl text-red md:text-3xl">{HINT}</p>
 
-      <div className="relative">
+      <div className="group relative">
+        <Connector side="left" />
+        <Connector side="right" />
         <span
           aria-hidden
           className="absolute inset-x-3 -bottom-2 h-full rounded-[999px] bg-[#8f0000]"

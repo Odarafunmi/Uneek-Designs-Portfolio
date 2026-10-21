@@ -161,6 +161,11 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   card grids sit on 24 px gaps and section headings keep 64 px clear above the grid. Card
   bodies use 24–32 px padding, the page header runs 144–192 px from the top, and the footer
   and CTA band carry 80–112 px of their own — so type never crowds the edges.
+- **Connect doodle** (`components/contact-actions.tsx`): on hover or keyboard focus the
+  Connect button, a hand-drawn wire unspools out of both sides of it, ink nodes pop in along
+  the way, a lit segment travels the wire and a little spark draws itself at the far end.
+  It is pure CSS/SVG (no JS timer), redraws at 150 × 90 px, hides below `md` so phones stay
+  clean, and collapses to a static drawn wire under `prefers-reduced-motion`.
 - **Custom classes** (`.btn`, `.card`, `.shell`, `.giant`, …) are declared inside
   `@layer components`, which keeps Tailwind utilities able to override them.
 - **Studio stats** live in `content/site.ts` (`yearsExperience: 3`, `projectsDelivered: 50`,
