@@ -895,7 +895,7 @@
 
 
 /* ---------------------------------------------------------------------------
-   Custom cursor — a redrawn arrow pointer with a modern finish
+   Custom cursor — a glossy red sphere with a trailing ring
 --------------------------------------------------------------------------- */
 
 /* Applied by the cursor component only on fine pointers with motion allowed. */
@@ -904,7 +904,7 @@ html.cursor-custom * {
   cursor: none !important;
 }
 
-/* Text fields keep a caret; the component draws a sharper one. */
+/* Text fields keep a caret; the component draws its own. */
 html.cursor-custom input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="range"]),
 html.cursor-custom textarea {
   cursor: text !important;
@@ -924,71 +924,119 @@ html.cursor-custom .cursor-layer {
   display: block;
 }
 
-/* --- arrow: a soft, glossy red pointer with a little weight ----------------- */
-.cursor-arrow {
+/* --- core: the leading dot, shaded like a small red sphere ---------------- */
+.cursor-core {
   position: absolute;
   top: 0;
   left: 0;
-  width: 22px;
-  height: 24px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
   opacity: 0;
-  /* the hotspot is the tip, so scaling must not move it */
-  transform-origin: 0 0;
   will-change: transform;
-  transition: opacity 140ms ease, filter 220ms ease;
-  /* a hairline light halo keeps the soft red legible on red artwork */
-  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.7)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.32))
-    drop-shadow(0 0 9px rgba(238, 3, 3, 0.25));
+  transition: opacity 180ms ease, width 220ms ease, height 220ms ease,
+    border-radius 220ms ease;
+  background:
+    radial-gradient(120% 120% at 30% 24%, #ff9a9a 0%, #ff4a4a 26%, #ee0303 58%, #960000 100%);
+  box-shadow:
+    inset 0 -1px 2px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    0 0 0 1px rgba(120, 0, 0, 0.35),
+    0 3px 8px rgba(238, 3, 3, 0.45),
+    0 0 18px rgba(238, 3, 3, 0.35);
 }
 
-.cursor-arrow svg {
-  display: block;
-  overflow: visible;
+/* specular highlight, so it reads as a lit sphere rather than a flat dot */
+.cursor-core::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 5px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  filter: blur(0.6px);
 }
 
-.cursor-arrow[data-visible="true"] {
+.cursor-core[data-visible="true"] {
   opacity: 1;
 }
 
-/* over something clickable: deeper shadow, a red bloom, and it lifts a touch */
-.cursor-arrow[data-mode="hover"] {
-  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.85)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.34))
-    drop-shadow(0 0 14px rgba(238, 3, 3, 0.62));
-}
-
-.cursor-arrow[data-mode="text"] {
-  opacity: 0;
-}
-
-.cursor-arrow[data-pressed="true"] {
-  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.9)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4))
-    drop-shadow(0 0 12px rgba(238, 3, 3, 0.55));
-}
-
-/* --- I-beam: drawn instead of the old caret blob ---------------------------- */
-.cursor-caret {
-  position: absolute;
-  top: 0;
-  left: 0;
+.cursor-core[data-mode="hover"] {
   width: 10px;
-  height: 21px;
+  height: 10px;
+}
+
+/* over text fields it becomes a slim caret */
+.cursor-core[data-mode="text"] {
+  width: 2px;
+  height: 22px;
+  border-radius: 2px;
+  background: var(--red);
+  box-shadow: 0 0 10px rgba(238, 3, 3, 0.55);
+}
+
+.cursor-core[data-mode="text"]::after {
+  display: none;
+}
+
+.cursor-core[data-pressed="true"] {
+  box-shadow:
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    0 0 0 1px rgba(120, 0, 0, 0.4),
+    0 1px 4px rgba(238, 3, 3, 0.4),
+    0 0 10px rgba(238, 3, 3, 0.3);
+}
+
+/* --- ring: trails the core, opens over anything interactive ---------------- */
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
   opacity: 0;
-  transform-origin: 50% 0;
   will-change: transform;
-  transition: opacity 140ms ease;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
+  display: grid;
+  place-items: center;
+  border: 1.5px solid rgba(238, 3, 3, 0.55);
+  background: radial-gradient(circle at 50% 50%, rgba(238, 3, 3, 0.1), transparent 70%);
+  box-shadow:
+    /* hairline dark edge so the ring still reads over red artwork */
+    0 0 0 0.5px rgba(0, 0, 0, 0.16),
+    0 0 12px rgba(238, 3, 3, 0.22),
+    inset 0 0 8px rgba(238, 3, 3, 0.16);
+  /* width/height animate instead of transform, because transform is driven by JS */
+  transition: opacity 200ms ease, border-color 220ms ease, background-color 220ms ease,
+    box-shadow 220ms ease, border-radius 220ms ease, border-width 220ms ease;
 }
 
-.cursor-caret svg {
-  display: block;
-}
-
-.cursor-caret[data-mode="text"] {
+.cursor-ring[data-visible="true"] {
   opacity: 1;
 }
 
-.cursor-caret[data-visible="false"] {
+.cursor-ring[data-mode="hover"] {
+  border-color: rgba(238, 3, 3, 0.75);
+  background: radial-gradient(circle at 50% 50%, rgba(238, 3, 3, 0.16), rgba(238, 3, 3, 0.04) 70%);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.16),
+    0 0 20px rgba(238, 3, 3, 0.28),
+    inset 0 0 12px rgba(238, 3, 3, 0.2);
+}
+
+.cursor-ring[data-mode="text"] {
   opacity: 0;
+}
+
+.cursor-ring[data-pressed="true"] {
+  border-color: rgba(238, 3, 3, 0.95);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.18),
+    0 0 26px rgba(238, 3, 3, 0.35),
+    inset 0 0 14px rgba(238, 3, 3, 0.25);
 }
 
 /* --- label printed beside the pointer -------------------------------------- */
@@ -1019,6 +1067,19 @@ html.cursor-custom .cursor-layer {
 
 .cursor-label[data-show="true"] {
   opacity: 1;
+}
+
+/* --- press burst ---------------------------------------------------------- */
+.cursor-burst {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(238, 3, 3, 0.6);
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 /* Keep the whole effect out of the way on touch devices. */

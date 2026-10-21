@@ -123,16 +123,14 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   red only where it earns attention. Two shapes: `portrait` (4/5 card crop) and `wide`
   (2:1 post hero, swapped in at `sm`). New posts fall back to a monogram cover, so adding an
   entry to `content/posts.ts` never needs an image.
-- **Custom cursor** (`components/ui/cursor.tsx`): a traditional arrow pointer, drawn as a
-  soft, rounded 3D object in brand red — gradient face, gloss along the top edge, deep red
-  pooling in the tail, a hairline light halo and a faint red glow so it stays readable on
-  white pages, near-black artwork and red buttons alike. It tracks the pointer with a short
-  weighted ease, lifts 12% and blooms over anything clickable, prints a label chip beside the
-  pointer for elements with `data-cursor="Label"` (flipping left near the viewport edge),
-  becomes a soft red I-beam over text fields, and compresses on press. Mounted once in
-  `app/layout.tsx`, it only activates for fine pointers (hybrid touch laptops included) and
-  never for `prefers-reduced-motion`; otherwise the OS cursor is untouched. Shape, shading
-  and states live in the cursor block of `app/globals.css`.
+- **Custom cursor** (`components/ui/cursor.tsx`): a glossy red sphere leads the pointer and
+  a red ring trails it with a slower ease, so movement has weight. Hovering a link, button or
+  card opens the ring; elements carrying `data-cursor="Label"` also print a label chip beside
+  the pointer (flipping left near the viewport edge); text fields collapse it into a slim red
+  caret; pressing compresses the sphere and fires one expanding ring. It is mounted once in
+  `app/layout.tsx`, only activates for fine pointers (hybrid touch laptops included) and never
+  for `prefers-reduced-motion`; otherwise the OS cursor is untouched. Sizes, shading and states
+  live in the cursor block of `app/globals.css`.
 - **Cards lean toward the pointer.** `TiltWrap` (`components/cards.tsx`) rotates a card up to
   ~9° on each axis with a slight lift, tracks the pointer through `--tilt-x` / `--tilt-y`
   custom properties (so only a CSS transform has to run), and springs back on leave.
