@@ -47,6 +47,19 @@ export function Nav() {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-[padding] duration-500 ${scrolled ? "pt-2.5" : "pt-4 md:pt-6"}`}
       >
+        {/* Opaque scrim: stops page content showing through behind the logo and pills */}
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-[calc(100%+26px)] bg-bg backdrop-blur-xl transition-opacity duration-300 ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%)",
+          }}
+        />
         <div className="shell flex items-center justify-between gap-3">
           <div className="flex items-center">
             <Logo size={scrolled ? 26 : 30} />

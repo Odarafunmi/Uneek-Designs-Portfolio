@@ -111,6 +111,9 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
     is `100svh`; on phones it is content-sized (~680–700 px) so there is no dead band
     under the CTAs. Slide 2 distributes the extra height around the portrait.
   - No orange: gradients run deep red → brand red → bright red, grey + black/white secondary.
+- **Header scrim**: once the page is scrolled the fixed header paints an opaque, blurred
+  strip behind the logo and pill nav (`components/nav.tsx`), masked to fade out at its
+  bottom edge, so page content never shows through the navigation.
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
   then remembers the visitor's choice in `localStorage`, with a 300 ms colour transition.

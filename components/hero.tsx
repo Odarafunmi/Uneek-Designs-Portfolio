@@ -238,7 +238,7 @@ function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean })
           initial={reduced ? undefined : { y: 60, opacity: 0 }}
           animate={reduced ? undefined : { y: 0, opacity: 1 }}
           transition={{ duration: 0.95, ease: EASE, delay: 0.1 }}
-          className="poster-word translate-y-0 md:translate-y-[9%]"
+          className="poster-word translate-y-0 md:translate-y-[6%]"
         >
           Designer
         </motion.p>
