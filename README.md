@@ -27,7 +27,7 @@ Node 20+ recommended.
 
 | Route | What it does |
 | --- | --- |
-| `/` | Two-slide hero, marquee, compact studio intro (one paragraph + three capability chips + 2×2 stats), featured work, categories, services, testimonials, journal, CTA |
+| `/` | Two-slide hero, marquee, compact studio intro (one paragraph + three capability chips + 2×2 stats), featured work, categories, services, journal, CTA. The testimonials block only renders once real quotes are added to `content/work.ts` |
 | `/work` | All 16 projects grouped by discipline, plus category cards |
 | `/work/[category]` | Branding / Social Media / Product Adverts / Hobbies |
 | `/work/[category]/[project]` | Project case study with brief, deliverables and next-project link |
@@ -117,10 +117,12 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
   then remembers the visitor's choice in `localStorage`, with a 300 ms colour transition.
-- **Real cover art**: every project, category and web project accepts an optional
-  `cover` field (e.g. `cover: "/work/zuri-coffee.jpg"`). When set, the card and the project
-  page render that image with `next/image`; when it is absent they fall back to the
-  generated SVG artwork, so the site works before any photography exists.
+- **Real work comes from the studio's Google Drive** (`My Portfolio`). `content/work.ts`
+  declares each project with a `cover`, an optional `gallery` and a `driveUrl`, using the
+  public `https://drive.google.com/thumbnail?id=…&sz=w1400` endpoint — no build-time fetch,
+  so the sandbox or a CI runner never needs Drive access. Images render `unoptimized`
+  (the browser fetches them directly) and any load failure silently falls back to the
+  generated SVG cover, so a private or moved folder never shows a broken image.
 - **Custom classes** (`.btn`, `.card`, `.shell`, `.giant`, …) are declared inside
   `@layer components`, which keeps Tailwind utilities able to override them.
 - **Counters**: the home-page stats use `components/ui/count-up.tsx`, which counts up

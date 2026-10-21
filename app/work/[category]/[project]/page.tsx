@@ -109,6 +109,7 @@ export default async function ProjectPage({
                   alt={project.title}
                   fill
                   priority
+                  unoptimized
                   sizes="(min-width: 1200px) 1200px, 100vw"
                   className="object-cover"
                 />
@@ -118,6 +119,44 @@ export default async function ProjectPage({
             </div>
           </div>
         </Reveal>
+
+        {project.gallery?.length ? (
+          <section className="section-tight">
+            <div className="shell">
+              <div className="flex items-end justify-between gap-6">
+                <p className="eyebrow">More from the project</p>
+                {project.driveUrl && (
+                  <a
+                    href={project.driveUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-red-ink underline decoration-red underline-offset-4"
+                  >
+                    Full case on Drive
+                    <ArrowUpRight size={14} />
+                  </a>
+                )}
+              </div>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {project.gallery.map((shot, i) => (
+                  <div
+                    key={shot}
+                    className="relative aspect-[4/5] overflow-hidden rounded-[20px] border border-line bg-surface"
+                  >
+                    <Image
+                      src={shot}
+                      alt={`${project.title} — detail ${i + 1}`}
+                      fill
+                      unoptimized
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="section-tight">
           <div className="shell grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">

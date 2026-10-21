@@ -32,8 +32,12 @@ export type Project = {
   year: number;
   deliverables: string[];
   art: ArtVariant;
-  /** Real cover image in `public/` — falls back to the generated art when absent. */
+  /** Real cover image — falls back to the generated art when absent. */
   cover?: string;
+  /** Extra shots shown on the project page. */
+  gallery?: string[];
+  /** Folder holding the full case on Google Drive. */
+  driveUrl?: string;
   featured?: boolean;
   /** Optional Behance / Drive link. Leave undefined to route enquiries to WhatsApp. */
   externalUrl?: string;

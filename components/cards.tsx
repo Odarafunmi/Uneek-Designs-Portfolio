@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import { CoverArt } from "@/components/art";
@@ -34,14 +35,20 @@ function Cover({
   seed?: number;
   sizes: string;
 }) {
-  if (!src) return <CoverArt variant={variant} label={label} seed={seed} />;
+  // If a hosted cover fails to load (private folder, offline) fall back to the
+  // generated artwork rather than showing a broken image.
+  const [failed, setFailed] = useState(false);
+
+  if (!src || failed) return <CoverArt variant={variant} label={label} seed={seed} />;
 
   return (
     <Image
       src={src}
       alt={label}
       fill
+      unoptimized
       sizes={sizes}
+      onError={() => setFailed(true)}
       className="object-cover"
     />
   );

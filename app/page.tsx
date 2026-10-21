@@ -15,14 +15,16 @@ import { sortedPosts } from "@/content/posts";
 import { site } from "@/content/site";
 
 const CLIENTS = [
-  "Zuri Coffee",
-  "Nkem Skincare",
-  "Oríkì Records",
-  "Terra Interiors",
-  "Kola Bank",
-  "Bloom & Co.",
-  "Lagos Fit Club",
-  "SunHouse Solar",
+  "Kiisi Collections",
+  "Zyntra Fitness",
+  "Fenchurch",
+  "Oister",
+  "Metricore AI",
+  "Kayali",
+  "Nivea Sun",
+  "Oraimo",
+  "Samsong",
+  "Lador",
 ];
 
 export default function HomePage() {
@@ -163,7 +165,7 @@ export default function HomePage() {
                 <span className="text-muted">worth a look.</span>
               </>
             }
-            copy="A quick slice of the studio: a roastery, a skincare launch and a label that needed a system, not a logo."
+            copy="A fashion label, a fragrance campaign and a year of social — three ways the studio builds a system, not just a logo."
             action={{ href: "/work", label: "All work" }}
           />
 
@@ -228,7 +230,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials — rendered only when real quotes exist in content/work.ts */}
+      {testimonials.length > 0 && (
       <section className="section-tight">
         <div className="shell">
           <SectionHeading
@@ -258,6 +261,7 @@ export default function HomePage() {
           </RevealGroup>
         </div>
       </section>
+      )}
 
       {/* Journal */}
       <section className="section-tight relative overflow-hidden border-t border-line">

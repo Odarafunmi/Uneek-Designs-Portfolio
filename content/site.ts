@@ -15,7 +15,8 @@ export const site = {
   /** International format, digits only — used for wa.me links and the QR code. */
   whatsapp: "2348100000000",
   whatsappDisplay: "+234 810 000 0000",
-  driveUrl: "https://drive.google.com/drive/folders/uneek-designs-portfolio",
+  driveUrl:
+    "https://drive.google.com/drive/folders/1p-dpckOpX7FIDYmvl-JuAKvKQGTtcpOm",
   behance: "https://www.behance.net/",
   instagram: "https://instagram.com/",
   x: "https://x.com/",

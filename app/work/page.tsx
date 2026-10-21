@@ -23,7 +23,7 @@ export default function WorkPage() {
             <span className="grad-text">things made on purpose.</span>
           </>
         }
-        copy="Sixteen projects across four disciplines — from a Lagos coffee roastery to a skincare launch that sold out its first run. Every project starts with the same question: what should this make people do?"
+        copy="Identities, campaign systems, product adverts and print — every project starts with the same question: what should this make people do?"
         meta={[`${projects.length} projects`, `${categories.length} categories`, "2024 — 2026"]}
       />
 
