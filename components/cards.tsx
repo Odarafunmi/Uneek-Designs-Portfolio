@@ -110,7 +110,7 @@ export function CategoryCard({
             <ArrowUpRight size={16} />
           </span>
         </div>
-        <div className="flex flex-1 flex-col justify-between gap-4 p-5">
+        <div className="flex flex-1 flex-col justify-between gap-5 p-6">
           <div>
             <h3 className={feature ? "h2 min-w-0" : "h3 min-w-0"}>{category.name}</h3>
             <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{category.tagline}</p>
@@ -156,7 +156,7 @@ export function ProjectCard({
           <ArrowUpRight size={16} />
         </span>
       </div>
-      <div className="p-5">
+      <div className="p-6">
         <h3 className="text-[17px] font-semibold tracking-[-0.02em]">{project.title}</h3>
         <p className="mt-1 text-[13px] text-muted">{project.tagline}</p>
         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -213,7 +213,7 @@ export function WebProjectCard({ project, index = 0 }: { project: WebProject; in
             <ExternalLink size={15} />
           </span>
         </div>
-        <div className="flex flex-1 flex-col p-5">
+        <div className="flex flex-1 flex-col p-6">
           <div className="flex items-baseline justify-between gap-3">
             <h3 className="text-[17px] font-semibold tracking-[-0.02em]">{project.title}</h3>
             <span className="text-[11px] tabular-nums text-muted">{project.year}</span>
@@ -259,7 +259,7 @@ export function ServiceCard({ service }: { service: Service }) {
       {featured && (
         <div className="pointer-events-none absolute inset-0 opacity-30 mix-blend-overlay [background-image:radial-gradient(circle_at_80%_0%,#fff,transparent_55%)]" />
       )}
-      <div className="relative flex flex-1 flex-col p-6 md:p-7">
+      <div className="relative flex flex-1 flex-col p-7 md:p-8">
         <div className="flex items-start justify-between gap-3">
           <span
             className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] ${
@@ -333,7 +333,7 @@ export function PostCard({ post, index = 0 }: { post: Post; index?: number }) {
             <ArrowUpRight size={16} />
           </span>
         </div>
-        <div className="flex flex-1 flex-col p-5">
+        <div className="flex flex-1 flex-col p-6">
           <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-muted">
             <span>{formatDate(post.date)}</span>
             <span className="h-1 w-1 rounded-full bg-red" />

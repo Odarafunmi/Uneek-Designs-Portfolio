@@ -74,7 +74,7 @@ export default async function CategoryPage({
 
       <section className="section-tight">
         <div className="shell">
-          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((project, index) => (
               <RevealItem key={project.slug}>
                 <ProjectCard
@@ -93,7 +93,7 @@ export default async function CategoryPage({
           <Reveal>
             <p className="eyebrow mb-6">Keep browsing</p>
           </Reveal>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-3">
             {others.map((other, index) => (
               <Reveal key={other.slug} delay={index * 0.05}>
                 <Link

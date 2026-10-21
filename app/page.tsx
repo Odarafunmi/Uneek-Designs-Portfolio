@@ -133,7 +133,7 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-                <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <div className="flex items-center justify-between gap-4 px-6 py-5">
                   <div>
                     <p className="eyebrow">Latest from the studio</p>
                     <p className="mt-1.5 text-[13px] text-muted">
@@ -159,7 +159,7 @@ export default function HomePage() {
             ].map((stat, index) => (
               <Reveal key={stat.label} delay={0.06 * index}>
                 <TiltWrap strength={5} className="h-full">
-                <div className="card flex h-full flex-col justify-between p-5">
+                <div className="card flex h-full flex-col justify-between p-6">
                   <p className="display text-[2.15rem] leading-none tabular-nums">
                     <CountUp
                       value={stat.value}
@@ -200,7 +200,7 @@ export default function HomePage() {
             action={{ href: "/work", label: "All work" }}
           />
 
-          <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((project, index) => (
               <RevealItem key={project.slug}>
                 <ProjectCard project={project} index={index} />
@@ -219,7 +219,7 @@ export default function HomePage() {
             title="Four drawers, one studio."
             copy="Brand identity, social media, product adverts and print — four drawers, one system underneath them."
           />
-          <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <RevealGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {categories.map((category, index) => (
               <RevealItem key={category.slug}>
                 <CategoryCard
@@ -270,11 +270,11 @@ export default function HomePage() {
             eyebrow="Kind words"
             title="What founders say after handover."
           />
-          <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
+          <RevealGroup className="mt-16 grid gap-6 md:grid-cols-3">
             {testimonials.map((item) => (
               <RevealItem key={item.name} className="h-full">
                 <TiltWrap strength={4} className="h-full">
-                <figure className="card flex h-full flex-col p-6">
+                <figure className="card flex h-full flex-col p-7">
                   <Quote size={22} className="text-red" strokeWidth={1.6} />
                   <blockquote className="mt-4 flex-1 text-[14.5px] leading-relaxed text-ink/90">
                     “{item.quote}”
@@ -312,7 +312,7 @@ export default function HomePage() {
             copy="Occasional writing about what actually happens between the brief and the launch."
             action={{ href: "/blog", label: "Read the blog" }}
           />
-          <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
+          <RevealGroup className="mt-16 grid gap-6 md:grid-cols-3">
             {posts.map((post, index) => (
               <RevealItem key={post.slug}>
                 <PostCard post={post} index={index} />

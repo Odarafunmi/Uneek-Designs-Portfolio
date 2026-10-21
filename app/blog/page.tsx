@@ -31,7 +31,7 @@ export default function BlogPage() {
 
       <section className="section-tight">
         <div className="shell">
-          <RevealGroup className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post, index) => (
               <RevealItem key={post.slug}>
                 <PostCard post={post} index={index} />

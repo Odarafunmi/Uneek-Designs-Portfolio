@@ -59,7 +59,7 @@ export default function WorkPage() {
                 </Reveal>
               </div>
 
-              <RevealGroup className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {items.slice(0, 4).map((project, index) => (
                   <RevealItem key={project.slug}>
                     <ProjectCard
@@ -78,7 +78,7 @@ export default function WorkPage() {
       <div className="shell">
         <Reveal>
           <TiltWrap strength={3}>
-          <div className="card flex flex-col items-start justify-between gap-6 p-7 sm:flex-row sm:items-center">
+          <div className="card flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center">
             <div>
               <p className="eyebrow mb-2">More on the drive</p>
               <p className="max-w-md text-[14.5px] leading-relaxed text-muted">

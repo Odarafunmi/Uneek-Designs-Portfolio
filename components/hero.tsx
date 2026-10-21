@@ -51,7 +51,7 @@ export function Hero() {
   return (
     <section
       aria-label="Introduction"
-      className="relative isolate flex flex-col overflow-hidden pb-1 pt-20 md:min-h-[100svh] md:pt-24"
+      className="relative isolate flex flex-col overflow-hidden pb-1 pt-24 md:min-h-[100svh] md:pt-28"
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -146,7 +146,7 @@ function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean })
 
   return (
     <div className="relative flex flex-1 flex-col">
-      <div className="shell relative z-20 grid content-start gap-6 pt-2 md:flex-1 md:grid-cols-[1.05fr_0.95fr] md:items-start md:gap-10 md:pt-10">
+      <div className="shell relative z-20 grid content-start gap-7 pt-4 md:flex-1 md:grid-cols-[1.05fr_0.95fr] md:items-start md:gap-12 md:pt-12">
         {/* Left: the pitch */}
         <div>
           <motion.p
@@ -174,7 +174,7 @@ function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean })
             transition={{ duration: 0.7, ease: EASE, delay: 0.06 }}
             className="mt-6 max-w-[13ch] font-display text-[clamp(2rem,4.4vw,3.4rem)] font-semibold leading-[1.02] tracking-[-0.04em]"
           >
-            Brand &amp; UI/UX Designer based in {site.location.split(",")[0]}
+            Creative Designer based in {site.location.split(",")[0]}
           </motion.h1>
 
           <motion.p
@@ -271,11 +271,11 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
             initial={reduced ? undefined : { opacity: 0, y: 26, scale: 0.98 }}
             animate={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, ease: EASE, delay: 0.08 }}
-            className="relative mx-auto w-[252px] sm:w-[286px] md:w-[340px]"
+            className="relative mx-auto w-[260px] sm:w-[310px] md:w-[380px]"
           >
             <div
               className="portrait-shell fade-bottom relative w-full"
-              style={{ height: "clamp(268px, min(34vw, 38vh), 400px)" }}
+              style={{ height: "clamp(280px, min(36vw, 40vh), 440px)" }}
             >
               <Portrait />
             </div>
@@ -322,27 +322,9 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
           </motion.div>
         </div>
 
-        {/* Greeting + headline, bottom-left, as in the reference */}
-        <div className="relative z-20 mt-6 flex flex-col gap-5 pb-1 md:mt-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <motion.p
-              {...stagger(0.2)}
-              className="text-[12.5px] font-medium text-muted md:text-[13.5px]"
-            >
-              Hey, I&apos;m {site.owner}.
-            </motion.p>
-            <motion.h2
-              {...stagger(0.26)}
-              className="mt-2 max-w-[16ch] font-display text-[clamp(1.9rem,4vw,3.1rem)] font-semibold leading-[1.02] tracking-[-0.045em]"
-            >
-              Brand, Product &amp; Social Design
-            </motion.h2>
-          </div>
-
-          <motion.div
-            {...stagger(0.34)}
-            className="flex flex-wrap items-center gap-2.5 md:pb-2"
-          >
+        {/* Primary actions, centred under the portrait */}
+        <div className="relative z-20 mt-8 flex justify-center pb-2 md:mt-10">
+          <motion.div {...stagger(0.3)} className="flex flex-wrap items-center justify-center gap-3">
             <Link href="/services" className="btn btn-primary">
               Book a service
               <ArrowUpRight size={16} />
@@ -350,17 +332,6 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
             <Link href="/contact" className="btn btn-outline">
               Say hello
             </Link>
-
-            <span className="float-card ml-2 hidden items-baseline justify-between gap-6 pr-2 opacity-45 lg:flex">
-              <span className="text-[11px] leading-tight text-muted">
-                Happy
-                <br />
-                clients
-              </span>
-              <span className="font-display text-[24px] font-semibold leading-none tracking-[-0.04em] tabular-nums">
-              <CountUp value={40} suffix="+" duration={1000} />
-            </span>
-            </span>
           </motion.div>
         </div>
       </div>

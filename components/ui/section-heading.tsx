@@ -17,12 +17,12 @@ export function SectionHeading({
 }) {
   return (
     <div
-      className={`flex flex-col gap-6 md:flex-row md:items-end md:justify-between ${className}`}
+      className={`flex flex-col gap-8 md:flex-row md:items-end md:justify-between ${className}`}
     >
       <div className="max-w-2xl">
         {eyebrow && (
           <Reveal>
-            <p className="eyebrow mb-4 flex items-center gap-2">
+            <p className="eyebrow mb-5 flex items-center gap-2">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-red" />
               {eyebrow}
             </p>
@@ -33,7 +33,7 @@ export function SectionHeading({
         </Reveal>
         {copy && (
           <Reveal delay={0.1}>
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted md:text-base">
+            <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted md:text-base">
               {copy}
             </p>
           </Reveal>

@@ -166,27 +166,27 @@
 
   @media (min-width: 768px) {
     .shell {
-      padding-inline: 40px;
+      padding-inline: 48px;
     }
   }
 
   .section {
-    padding-block: 96px;
+    padding-block: 112px;
   }
 
   @media (min-width: 768px) {
     .section {
-      padding-block: 128px;
+      padding-block: 160px;
     }
   }
 
   .section-tight {
-    padding-block: 64px;
+    padding-block: 80px;
   }
 
   @media (min-width: 768px) {
     .section-tight {
-      padding-block: 88px;
+      padding-block: 112px;
     }
   }
 

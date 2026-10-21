@@ -74,10 +74,10 @@ export default async function ContactPage() {
 
       {/* QR + details */}
       <section className="section-tight">
-        <div className="shell grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="shell grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
           <Reveal>
             <TiltWrap strength={4} className="h-full">
-            <div className="card flex h-full flex-col items-center justify-center gap-5 p-7 text-center">
+            <div className="card flex h-full flex-col items-center justify-center gap-6 p-8 text-center">
               <div className="inline-flex items-center gap-2 rounded-full bg-surface-2 px-3 py-1.5 text-[10.5px] font-medium uppercase tracking-[0.16em] text-muted">
                 <ScanLine size={12} />
                 Scan to chat
@@ -105,10 +105,10 @@ export default async function ContactPage() {
             </TiltWrap>
           </Reveal>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-6">
             <Reveal delay={0.06}>
               <TiltWrap strength={4}>
-              <div className="card p-6">
+              <div className="card p-7">
                 <p className="eyebrow mb-2">Direct lines</p>
                 <CopyField
                   label="Phone / WhatsApp"
@@ -129,7 +129,7 @@ export default async function ContactPage() {
 
             <Reveal delay={0.12}>
               <TiltWrap strength={4}>
-              <div className="card p-6">
+              <div className="card p-7">
                 <div className="flex items-center justify-between gap-4">
                   <p className="eyebrow">Studio hours</p>
                   <span className="inline-flex items-center gap-1.5 text-[11px] text-muted">
@@ -150,7 +150,7 @@ export default async function ContactPage() {
 
             <Reveal delay={0.18}>
               <TiltWrap strength={4}>
-              <div className="card p-6">
+              <div className="card p-7">
                 <p className="eyebrow mb-4">Elsewhere</p>
                 <div className="flex flex-wrap gap-2">
                   {SOCIALS.map((social) => (
@@ -204,7 +204,7 @@ export default async function ContactPage() {
             <p className="hand mt-6 text-2xl text-red">Voice notes count. I listen to all of them.</p>
           </Reveal>
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             {[
               { n: "01", t: "What you're building", d: "The business, the offer, who buys it." },
               { n: "02", t: "What's broken", d: "The thing that made you look for a designer." },

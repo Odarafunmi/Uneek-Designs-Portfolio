@@ -31,7 +31,7 @@ export default function WebPage() {
 
       <section className="section-tight">
         <div className="shell">
-          <RevealGroup className="grid gap-5 md:grid-cols-2">
+          <RevealGroup className="grid gap-6 md:grid-cols-2">
             {webProjects.map((project, index) => (
               <RevealItem key={project.slug}>
                 <WebProjectCard project={project} index={index} />
@@ -59,7 +59,7 @@ export default function WebPage() {
                 </span>
               ))}
             </div>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="mt-10 grid gap-5 sm:grid-cols-2">
               {[
                 { title: "Design + build", copy: "One person, one vision, no handoff loss." },
                 { title: "CMS-ready", copy: "Content modelled for Supabase or a flat file." },

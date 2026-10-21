@@ -85,7 +85,7 @@ export default function ServicesPage() {
           </RevealGroup>
 
           <Reveal delay={0.16}>
-            <div className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-line bg-surface/60 p-5 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-line bg-surface/60 p-6 sm:flex-row sm:items-center">
               <p className="max-w-lg text-[13.5px] leading-relaxed text-muted">
                 <span className="font-medium text-ink">Something custom?</span> Retainers,
                 packaging systems, pitch decks and multi-market campaigns get quoted after a
@@ -120,7 +120,7 @@ export default function ServicesPage() {
             <h2 className="h2 mt-4 max-w-2xl">Four steps, no black box.</h2>
           </Reveal>
 
-          <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <RevealGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {PROCESS.map((step, index) => (
               <RevealItem key={step.title} className="h-full">
                 <div className="relative h-full rounded-2xl border border-line bg-bg p-5">

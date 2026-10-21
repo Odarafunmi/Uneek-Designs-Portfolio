@@ -18,7 +18,7 @@ export function PageHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <header className="relative overflow-hidden pb-12 pt-32 md:pb-16 md:pt-40">
+    <header className="relative overflow-hidden pb-16 pt-36 md:pb-24 md:pt-48">
       <div className="mesh mesh-soft opacity-90">
         <div className="mesh-blob" />
         <div className="mesh-blob" />
@@ -27,7 +27,7 @@ export function PageHeader({
       <div className="shell relative z-10">
         {breadcrumb && (
           <Reveal>
-            <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-[11.5px] text-muted">
+            <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-1.5 text-[11.5px] text-muted">
               <Link href="/" className="hover:text-ink">
                 Home
               </Link>
@@ -51,18 +51,18 @@ export function PageHeader({
         </Reveal>
 
         <Reveal delay={0.06}>
-          <h1 className="h1 mt-5 max-w-4xl">{title}</h1>
+          <h1 className="h1 mt-6 max-w-4xl">{title}</h1>
         </Reveal>
 
         {copy && (
           <Reveal delay={0.12}>
-            <p className="lede mt-6 max-w-2xl">{copy}</p>
+            <p className="lede mt-7 max-w-2xl">{copy}</p>
           </Reveal>
         )}
 
         {meta && (
           <Reveal delay={0.16}>
-            <ul className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-muted">
+            <ul className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-2 text-[12px] text-muted">
               {meta.map((item) => (
                 <li key={item} className="inline-flex items-center gap-2">
                   <span className="h-1 w-1 rounded-full bg-red" />

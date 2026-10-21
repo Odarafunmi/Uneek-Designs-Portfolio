@@ -156,6 +156,11 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   so the sandbox or a CI runner never needs Drive access. Images render `unoptimized`
   (the browser fetches them directly) and any load failure silently falls back to the
   generated SVG cover, so a private or moved folder never shows a broken image.
+- **Spacing rhythm**: `.shell` is 1248 px wide with 24 px gutters on phones and 48 px from
+  768 px up. Sections breathe at 112 / 160 px block padding, `.section-tight` at 80 / 112 px,
+  card grids sit on 24 px gaps and section headings keep 64 px clear above the grid. Card
+  bodies use 24–32 px padding, the page header runs 144–192 px from the top, and the footer
+  and CTA band carry 80–112 px of their own — so type never crowds the edges.
 - **Custom classes** (`.btn`, `.card`, `.shell`, `.giant`, …) are declared inside
   `@layer components`, which keeps Tailwind utilities able to override them.
 - **Studio stats** live in `content/site.ts` (`yearsExperience: 3`, `projectsDelivered: 50`,
