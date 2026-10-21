@@ -266,9 +266,11 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
   return (
     <div className="relative flex flex-1 flex-col">
       <div className="shell relative flex flex-1 flex-col">
-        {/* Ghost word behind the portrait */}
-        <div className="pointer-events-none absolute inset-x-0 top-[13%] z-0 overflow-hidden">
-          <p className="ghost-word">{site.owner}</p>
+        {/* Ghost word behind the portrait — held to the same gutters as the rest */}
+        <div className="pointer-events-none absolute inset-x-6 top-[12%] z-0 overflow-hidden md:inset-x-12">
+          <div className="ghost-fit">
+            <p className="ghost-word">{site.owner}</p>
+          </div>
         </div>
 
         {/* Portrait, tags and stat cards */}
@@ -277,23 +279,21 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
             initial={reduced ? undefined : { opacity: 0, y: 26, scale: 0.98 }}
             animate={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, ease: EASE, delay: 0.08 }}
-            className="relative mx-auto w-[240px] sm:w-[300px] md:w-[380px]"
+            className="relative mx-auto w-[300px] sm:w-[380px] md:w-[clamp(440px,_44vw,_600px)]"
           >
-            <div className="portrait-shell fade-bottom relative h-[322px] w-full sm:h-[402px] md:h-[clamp(420px,_54vh,_500px)]">
-              {/* the portrait is cut out and scaled past the arch, so it fills the
-                  frame the way the reference does — no dead black at the sides */}
+            <div className="portrait-stage">
               <div className="portrait-photo-wrap">
                 <Image
                   src="/brand/portrait.webp"
                   alt={`${site.owner}, brand and product designer`}
-                  width={960}
-                  height={1307}
-                  sizes="(min-width: 768px) 480px, (min-width: 640px) 380px, 300px"
+                  width={900}
+                  height={675}
+                  sizes="(min-width: 768px) 600px, (min-width: 640px) 380px, 300px"
                   priority={false}
                   className="portrait-photo"
                 />
               </div>
-              {/* light + shade, so the cut-out sits inside the arch in either theme */}
+              {/* the red light that sits over the shoulders */}
               <div className="portrait-light" aria-hidden />
             </div>
 

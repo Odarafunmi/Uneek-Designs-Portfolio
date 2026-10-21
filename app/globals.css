@@ -611,10 +611,15 @@
   }
 
   /* Same word, ghosted, sitting behind the founder portrait */
+  /* the ghost word hugs the same content box as everything else */
+  .ghost-fit {
+    container-type: inline-size;
+  }
+
   .ghost-word {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(3.4rem, 20vw, 26rem);
+    font-size: 23cqw;
     line-height: 0.8;
     letter-spacing: -0.05em;
     text-transform: uppercase;
@@ -682,89 +687,62 @@
     );
   }
 
-  /* The arch: black, with a red glow spilling down from its crown. */
-  .portrait-shell {
+  /* The founder's stage: no frame, no arch — the cut-out sits straight on the
+     page, with a red glow burning behind the head and falling over the shoulders. */
+  .portrait-stage {
     position: relative;
-    overflow: hidden;
-    border-radius: 999px 999px 24px 24px;
-    background: #050505;
-    box-shadow:
-      0 50px 90px -50px rgba(0, 0, 0, 0.85),
-      0 0 70px -18px rgba(238, 3, 3, 0.35);
+    isolation: isolate;
   }
 
-  /* the glow itself — pooled at the top edge, falling away as it descends */
-  .portrait-shell::before {
+  .portrait-stage::before {
     content: "";
     position: absolute;
-    inset: 0;
+    /* a soft bloom behind the head that widens over the shoulders — the
+       gradient fades out well inside the box, so no edge ever shows */
+    inset: -34% -30% 8% -30%;
     z-index: 0;
     pointer-events: none;
     background:
-      radial-gradient(70% 52% at 50% -10%, rgba(255, 59, 59, 0.85) 0%, rgba(238, 3, 3, 0.38) 26%, transparent 62%),
-      radial-gradient(120% 78% at 24% -4%, rgba(184, 2, 2, 0.4), transparent 58%);
+      radial-gradient(
+        30% 26% at 50% 34%,
+        rgba(255, 59, 59, 0.55) 0%,
+        rgba(238, 3, 3, 0.26) 38%,
+        rgba(184, 2, 2, 0.07) 62%,
+        transparent 78%
+      ),
+      radial-gradient(
+        52% 34% at 50% 46%,
+        rgba(238, 3, 3, 0.22) 0%,
+        rgba(184, 2, 2, 0.08) 46%,
+        transparent 72%
+      );
+    filter: blur(22px);
   }
 
-  /* finishing pass: a cool vignette so the black reads as a lit surface,
-     plus a thin red rim along the arch edge */
-  .portrait-shell::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(120% 86% at 50% 108%, rgba(0, 0, 0, 0.9), transparent 58%);
-    box-shadow: inset 0 0 0 1px rgba(238, 3, 3, 0.28);
-    z-index: 2;
-  }
-
-  [data-theme="dark"] .portrait-shell {
-    /* a shade above the page black, so the arch keeps its shape */
-    background: #131312;
-    box-shadow:
-      0 50px 90px -50px rgba(0, 0, 0, 0.95),
-      0 0 90px -14px rgba(238, 3, 3, 0.5);
-  }
-
-  /* and in dark mode the glow reads from the crown, like a light behind it */
-  [data-theme="dark"] .portrait-shell::before {
+  [data-theme="dark"] .portrait-stage::before {
     background:
-      radial-gradient(70% 52% at 50% -10%, rgba(255, 59, 59, 0.9) 0%, rgba(238, 3, 3, 0.34) 26%, transparent 62%),
-      radial-gradient(120% 78% at 24% -4%, rgba(184, 2, 2, 0.45), transparent 58%);
+      radial-gradient(
+        30% 26% at 50% 34%,
+        rgba(255, 59, 59, 0.66) 0%,
+        rgba(238, 3, 3, 0.3) 38%,
+        rgba(184, 2, 2, 0.08) 62%,
+        transparent 78%
+      ),
+      radial-gradient(
+        52% 34% at 50% 46%,
+        rgba(238, 3, 3, 0.26) 0%,
+        rgba(184, 2, 2, 0.1) 46%,
+        transparent 72%
+      );
+    filter: blur(26px);
   }
 
-  [data-theme="dark"] .portrait-shell::after {
-    background: radial-gradient(120% 86% at 50% 108%, rgba(0, 0, 0, 0.92), transparent 58%);
-    box-shadow:
-      inset 0 0 0 1px rgba(238, 3, 3, 0.32),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-
-  /* on narrow screens the arch is squat, so the glow is pulled tighter to the
-     crown — otherwise the red swallows the black the way the old arch did */
-  @media (max-width: 640px) {
-    .portrait-shell::before {
-      background:
-        radial-gradient(56% 26% at 50% -6%, rgba(255, 59, 59, 0.72) 0%, rgba(238, 3, 3, 0.24) 30%, transparent 68%),
-        radial-gradient(90% 30% at 26% -4%, rgba(184, 2, 2, 0.28), transparent 62%);
-    }
-
-    [data-theme="dark"] .portrait-shell::before {
-      background:
-        radial-gradient(56% 26% at 50% -6%, rgba(255, 59, 59, 0.78) 0%, rgba(238, 3, 3, 0.22) 30%, transparent 68%),
-        radial-gradient(90% 30% at 26% -4%, rgba(184, 2, 2, 0.3), transparent 62%);
-    }
-  }
-
-  /* --- the founder's photograph, cut out and lit to sit inside the arch ----- */
-  /* the photo is deliberately wider than the arch: it is cropped by it, so the
-     subject fills the frame instead of floating in the middle of it */
+  /* --- the founder's photograph ------------------------------------------- */
+  /* Cut to the chest, so the shot reads as a portrait rather than a full bust,
+     and dissolved at the hem inside the asset itself — it melts into whatever
+     page background it lands on, in either theme. */
   .portrait-photo-wrap {
-    position: absolute;
-    /* a breath of air between the crown and the arch */
-    top: 2.5%;
-    left: 50%;
-    width: 106%;
-    transform: translateX(-50%);
+    position: relative;
     z-index: 1;
     pointer-events: none;
   }
@@ -772,7 +750,11 @@
   .portrait-photo {
     width: 100%;
     height: auto;
-    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.28));
+  }
+
+  [data-theme="dark"] .portrait-photo {
+    filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.55));
   }
 
   .portrait-light {
@@ -780,17 +762,13 @@
     inset: 0;
     z-index: 2;
     pointer-events: none;
-    /* red light falling from the glow above, and a soft base shade */
-    background:
-      radial-gradient(80% 46% at 50% 0%, rgba(255, 59, 59, 0.5), transparent 64%),
-      radial-gradient(70% 34% at 50% 100%, rgba(0, 0, 0, 0.5), transparent 72%);
+    /* red light falling from the glow above, over the shoulders */
+    background: radial-gradient(70% 44% at 50% 2%, rgba(255, 59, 59, 0.34), transparent 70%);
     mix-blend-mode: soft-light;
   }
 
   [data-theme="dark"] .portrait-light {
-    background:
-      radial-gradient(80% 46% at 50% 0%, rgba(255, 59, 59, 0.42), transparent 66%),
-      radial-gradient(70% 34% at 50% 100%, rgba(0, 0, 0, 0.65), transparent 72%);
+    background: radial-gradient(70% 44% at 50% 2%, rgba(255, 59, 59, 0.3), transparent 70%);
   }
 
   /* ---------------------------------------------------------------------------

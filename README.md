@@ -73,8 +73,8 @@ variant (`arch`, `grid`, `type`, `bottle`, `cards`, `disc`, `boxes`, `browser`, 
 
 When real photography is ready, swap `<CoverArt />` in `components/cards.tsx` for
 `next/image`; the card markup is already built around a fixed-ratio cover slot. The hero
-portrait (`Portrait()` in `components/hero.tsx`) is likewise a placeholder — replace the
-inline SVG with `<Image src="/images/peculiar.jpg" />` inside `.portrait-shell`.
+portrait is already real: `<Image src="/brand/portrait.webp" />` inside `.portrait-stage`
+in `components/hero.tsx`.
 
 ### Brand assets
 
@@ -104,10 +104,12 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
     clipped at the base like the reference. The word is sized in container units against
     the shell's content box (`.poster-fit` / `22.6cqw`), so its left and right edges line
     up with the headline and the page gutters at every width instead of bleeding past them.
-  - *Slide 2 — the founder (second reference).* Portrait inside a red arch, a huge ghosted
-    "PECULIAR" behind it, floating discipline pills (Brand identity / Product design /
-    Social media) and glass stat cards that count up, with "Hey, I'm Peculiar." + the
-    discipline headline bottom-left and CTAs bottom-right.
+  - *Slide 2 — the founder.* The cut-out photograph cropped to the chest, no frame or arch
+    behind it, with a red glow burning behind the head and falling over the shoulders. A
+    huge ghosted "PECULIAR" sits behind it — sized off the shell's content box
+    (`.ghost-fit` / `23cqw`), so it stops inside the page gutters like everything else —
+    along with floating discipline pills (Brand identity / Product design / Social media)
+    and glass stat cards that count up, centred CTAs underneath.
   - Both slides are stacked in one CSS grid cell, so the row is always as tall as the
     taller slide: switching (or autoplaying) never shifts the page. From `md` up the hero
     is `100svh`; on phones it is content-sized (~680–700 px) so there is no dead band
@@ -168,14 +170,12 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   only has two, the unused track collapses and both cards stretch to the full reading
   width — no half-empty row, and never past the page gutters.
 - **Hero portrait**: slide two uses the founder's own photograph, background removed
-  (`public/brand/portrait.webp`, 960 × 1307 — cut to the subject with a sliver of transparent
-  headroom). It is colour-decontaminated at the edge (no beige fringe) and lit inside the arch
-  by `.portrait-light` — red light spilling from the crown plus a soft base shade, both in
-  `soft-light`, with a darker, cooler variant for dark mode. The photo is deliberately wider
-  than the arch (`.portrait-photo-wrap`, 106 %) and cropped by it, so the subject fills the
-  frame instead of floating in the middle of it; `.fade-bottom` dissolves the base. The face
-  itself is never retouched: no reshaping, no re-lighting of features, no cropping of the
-  composition.
+  (`public/brand/portrait.webp`, 900 × 675 — the shot cropped at chest level, with the
+  dissolve baked into the asset's alpha so it melts into either theme's page background
+  with no frame around it). A `.portrait-stage::before` bloom puts the red glow behind the
+  head and shoulders, and `.portrait-light` washes a little more red light over the top of
+  the cut-out in `soft-light`. The face itself is never retouched: no reshaping, no
+  re-lighting of features, no cropping of the composition.
 - **Connect doodle** (`components/contact-actions.tsx`): on hover or keyboard focus the
   Connect button, a hand-drawn wire unspools out of both sides of it, ink nodes pop in along
   the way, a lit segment travels the wire and a little spark draws itself at the far end.
