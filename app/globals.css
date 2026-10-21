@@ -924,19 +924,21 @@ html.cursor-custom .cursor-layer {
   display: block;
 }
 
-/* --- arrow: the pointer, with a rim, a red face and a little weight --------- */
+/* --- arrow: a soft, glossy red pointer with a little weight ----------------- */
 .cursor-arrow {
   position: absolute;
   top: 0;
   left: 0;
-  width: 19px;
-  height: 29px;
+  width: 22px;
+  height: 24px;
   opacity: 0;
   /* the hotspot is the tip, so scaling must not move it */
   transform-origin: 0 0;
   will-change: transform;
   transition: opacity 140ms ease, filter 220ms ease;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.22)) drop-shadow(0 3px 7px rgba(0, 0, 0, 0.16));
+  /* a hairline light halo keeps the soft red legible on red artwork */
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.7)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.32))
+    drop-shadow(0 0 9px rgba(238, 3, 3, 0.25));
 }
 
 .cursor-arrow svg {
@@ -948,9 +950,10 @@ html.cursor-custom .cursor-layer {
   opacity: 1;
 }
 
-/* over something clickable: brighter rim, a red bloom, and it lifts a touch */
+/* over something clickable: deeper shadow, a red bloom, and it lifts a touch */
 .cursor-arrow[data-mode="hover"] {
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.24)) drop-shadow(0 0 7px rgba(238, 3, 3, 0.55));
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.85)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.34))
+    drop-shadow(0 0 14px rgba(238, 3, 3, 0.62));
 }
 
 .cursor-arrow[data-mode="text"] {
@@ -958,7 +961,8 @@ html.cursor-custom .cursor-layer {
 }
 
 .cursor-arrow[data-pressed="true"] {
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 9px rgba(238, 3, 3, 0.5));
+  filter: drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.9)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 0 12px rgba(238, 3, 3, 0.55));
 }
 
 /* --- I-beam: drawn instead of the old caret blob ---------------------------- */
@@ -967,12 +971,12 @@ html.cursor-custom .cursor-layer {
   top: 0;
   left: 0;
   width: 10px;
-  height: 20px;
+  height: 21px;
   opacity: 0;
   transform-origin: 50% 0;
   will-change: transform;
   transition: opacity 140ms ease;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.28));
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
 
 .cursor-caret svg {

@@ -4,7 +4,9 @@ import { useEffect, useRef } from "react";
 
 /**
  * A redrawn pointer that keeps the familiar arrow silhouette — a traditional
- * cursor, finished in the studio's red with a little depth and weight.
+ * arrow, shaped soft and rounded and shaded like a small 3D object: red gradient
+ * face, gloss along the top edge, deep red pooling in the tail, and a faint red
+ * glow. Reads on white pages, dark artwork and red buttons alike.
  *
  * - Fine pointers only; touch and reduced-motion visitors keep the OS cursor.
  * - The arrow tracks the pointer with a short, weighted ease (a few frames of
@@ -163,47 +165,58 @@ export function Cursor() {
     <div className="cursor-layer" aria-hidden>
       <span ref={labelRef} className="cursor-label" data-show="false" data-side="right" />
 
-      {/* The pointer itself — classic arrow silhouette, redrawn with a rim and shading. */}
+      {/* The pointer itself — a soft, rounded arrow with a red gradient and gloss. */}
       <div ref={arrowRef} className="cursor-arrow" data-mode="default" data-visible="false" data-pressed="false">
-        <svg viewBox="0 0 13 20" width="19" height="29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 24 26" width="22" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="cursor-red" x1="2" y1="1" x2="11" y2="19" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stopColor="#FF5757" />
-              <stop offset="0.42" stopColor="#EE0303" />
-              <stop offset="1" stopColor="#A30000" />
+            <linearGradient id="cur-face" x1="7" y1="2" x2="15" y2="25" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stopColor="#FF8A8A" />
+              <stop offset="0.32" stopColor="#FF4A4A" />
+              <stop offset="0.62" stopColor="#EE0303" />
+              <stop offset="1" stopColor="#9E0000" />
+            </linearGradient>
+            {/* sheen: light along the top edge, shade pooling in the tail */}
+            <linearGradient id="cur-gloss" x1="12" y1="1" x2="8" y2="26" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stopColor="#FFFFFF" stopOpacity="0.55" />
+              <stop offset="0.34" stopColor="#FFFFFF" stopOpacity="0.12" />
+              <stop offset="0.62" stopColor="#000000" stopOpacity="0" />
+              <stop offset="1" stopColor="#5A0000" stopOpacity="0.45" />
             </linearGradient>
           </defs>
-          {/* a faint dark edge separates the rim from red artwork behind it */}
           <path
-            d="M0.6 0.6 L0.6 17.64 L4.54 13.96 L7.05 19.4 L9.94 18.05 L7.42 12.62 L12.4 12.62 Z"
-            fill="none"
-            stroke="rgba(0,0,0,0.38)"
-            strokeWidth="2.1"
+            d="M3 2 L2.2 18.6 L8.4 14 L10.6 22.6 L14.6 20.8 L11.6 12.6 L21.4 11.8 Z"
+            fill="url(#cur-face)"
+            stroke="url(#cur-face)"
+            strokeWidth="4"
             strokeLinejoin="round"
-          />
-          {/* white rim keeps the arrow legible on red artwork and on black */}
-          <path
-            d="M0.6 0.6 L0.6 17.64 L4.54 13.96 L7.05 19.4 L9.94 18.05 L7.42 12.62 L12.4 12.62 Z"
-            fill="#fff"
-            stroke="#fff"
-            strokeWidth="1.2"
-            strokeLinejoin="round"
+            strokeLinecap="round"
           />
           <path
-            d="M0.6 0.6 L0.6 17.64 L4.54 13.96 L7.05 19.4 L9.94 18.05 L7.42 12.62 L12.4 12.62 Z"
-            fill="url(#cursor-red)"
-            stroke="#fff"
-            strokeWidth="0.55"
+            d="M3 2 L2.2 18.6 L8.4 14 L10.6 22.6 L14.6 20.8 L11.6 12.6 L21.4 11.8 Z"
+            fill="url(#cur-gloss)"
+            stroke="url(#cur-gloss)"
+            strokeWidth="4"
             strokeLinejoin="round"
+            strokeLinecap="round"
           />
         </svg>
       </div>
 
       {/* Text fields get a drawn I-beam rather than a blob. */}
       <div ref={caretRef} className="cursor-caret" data-mode="default" data-visible="false" data-pressed="false">
-        <svg viewBox="0 0 10 20" width="10" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1.2 1.1 H8.8 M5 1.1 V18.9 M1.2 18.9 H8.8" stroke="#fff" strokeWidth="3.4" strokeLinecap="round" />
-          <path d="M1.2 1.1 H8.8 M5 1.1 V18.9 M1.2 18.9 H8.8" stroke="#EE0303" strokeWidth="1.9" strokeLinecap="round" />
+        <svg viewBox="0 0 10 21" width="10" height="21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="cur-caret" x1="2" y1="0" x2="8" y2="21" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stopColor="#FF5A5A" />
+              <stop offset="1" stopColor="#B00000" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M1.4 1.6 H8.6 M5 1.6 V19.4 M1.4 19.4 H8.6"
+            stroke="url(#cur-caret)"
+            strokeWidth="2.6"
+            strokeLinecap="round"
+          />
         </svg>
       </div>
     </div>
