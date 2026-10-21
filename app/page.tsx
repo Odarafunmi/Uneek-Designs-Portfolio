@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { ArrowUpRight, Quote } from "lucide-react";
+import { ArrowUpRight, Code2, Package, Palette, Quote } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Marquee } from "@/components/ui/marquee";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CtaBand } from "@/components/ui/cta-band";
+import { HeroObjectLazy } from "@/components/hero-object-lazy";
 import { CategoryCard, PostCard, ProjectCard, ServiceCard } from "@/components/cards";
 import { CoverArt } from "@/components/art";
 import { CountUp } from "@/components/ui/count-up";
@@ -37,8 +38,8 @@ export default function HomePage() {
       </div>
 
       {/* Intro / studio */}
-      <section className="section">
-        <div className="shell grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+      <section className="section-tight">
+        <div className="shell grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div className="lg:sticky lg:top-32 lg:self-start">
             <Reveal>
               <p className="eyebrow flex items-center gap-2">
@@ -52,22 +53,35 @@ export default function HomePage() {
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
-              <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-muted">
-                <p>
-                  {site.name} is me, {site.owner} — a brand and product designer working
-                  with founders who are done looking like everyone else. Most of my
-                  clients are small teams with big ambitions and no design department.
-                </p>
-                <p>
-                  So I build systems, not one-off files. Identity, adverts, social and the
-                  occasional website — all pulled from the same visual logic, all
-                  documented well enough for someone else to run.
-                </p>
-              </div>
+              <p className="mt-5 max-w-[34ch] text-[15px] leading-relaxed text-muted md:text-base">
+                One designer, systems that scale. Identity, product visuals and sites —
+                documented so any team can run them.
+              </p>
             </Reveal>
+
+            <Reveal delay={0.14}>
+              <ul className="mt-8 grid gap-3 sm:grid-cols-3">
+                {[
+                  { icon: Palette, label: "Brand systems" },
+                  { icon: Package, label: "Product visuals" },
+                  { icon: Code2, label: "Web builds" },
+                ].map((item) => (
+                  <li
+                    key={item.label}
+                    className="flex items-center gap-3 rounded-2xl border border-line bg-surface/60 px-4 py-3"
+                  >
+                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-red/10 text-red-ink">
+                      <item.icon size={16} strokeWidth={1.8} />
+                    </span>
+                    <span className="text-[13px] font-medium leading-tight">{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+
             <Reveal delay={0.16}>
-              <p className="hand mt-6 text-2xl text-red">
-                Ask me about the red. There&apos;s a reason.
+              <p className="hand mt-6 text-xl text-red-ink md:text-2xl">
+                Ask me about the red.
               </p>
             </Reveal>
             <Reveal delay={0.2}>
@@ -83,8 +97,8 @@ export default function HomePage() {
             </Reveal>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Reveal className="sm:col-span-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <Reveal className="col-span-2">
               <div className="card relative overflow-hidden">
                 <div className="relative aspect-[16/9]">
                   <CoverArt variant="type" label="Uneek" />
@@ -132,8 +146,14 @@ export default function HomePage() {
       </section>
 
       {/* Featured work */}
-      <section className="section-tight border-t border-line">
-        <div className="shell">
+      <section className="section-tight relative overflow-hidden border-t border-line">
+        <div
+          className="pointer-events-none absolute right-0 top-16 h-[180px] w-[180px] opacity-[0.14] dark:opacity-55 [mask-image:radial-gradient(circle_at_50%_50%,#000_35%,transparent_72%)] lg:block hidden"
+          aria-hidden
+        >
+          <HeroObjectLazy className="h-full w-full" />
+        </div>
+        <div className="shell relative z-10">
           <SectionHeading
             eyebrow="Selected work"
             title={
@@ -240,8 +260,14 @@ export default function HomePage() {
       </section>
 
       {/* Journal */}
-      <section className="section-tight border-t border-line">
-        <div className="shell">
+      <section className="section-tight relative overflow-hidden border-t border-line">
+        <div
+          className="pointer-events-none absolute right-2 top-24 h-[150px] w-[150px] opacity-[0.18] dark:opacity-45 [mask-image:radial-gradient(circle_at_50%_50%,#000_30%,transparent_70%)] lg:block hidden"
+          aria-hidden
+        >
+          <HeroObjectLazy className="h-full w-full" />
+        </div>
+        <div className="shell relative z-10">
           <SectionHeading
             eyebrow="From the studio"
             title="Notes on brands, colour and client work."

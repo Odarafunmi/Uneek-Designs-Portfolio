@@ -51,7 +51,7 @@ export function Hero() {
   return (
     <section
       aria-label="Introduction"
-      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden pt-24 md:pt-24"
+      className="relative isolate flex flex-col overflow-hidden pb-1 pt-20 md:min-h-[100svh] md:pt-24"
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -63,38 +63,36 @@ export function Hero() {
         <div className="mesh-blob" />
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col" style={{ touchAction: "pan-y" }}>
-        <AnimatePresence initial={false} mode="wait">
-          {index === 0 ? (
+      <div className="relative z-10 grid flex-1" style={{ touchAction: "pan-y" }}>
+        {[0, 1].map((slide) => {
+          const active = index === slide;
+          return (
             <motion.div
-              key="slide-1"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.45, ease: EASE }}
+              key={slide}
+              initial={false}
+              animate={{ opacity: active ? 1 : 0 }}
+              transition={{ duration: 0.5, ease: EASE }}
+              aria-hidden={!active}
+              inert={!active}
               {...swipe}
-              className="flex flex-1 cursor-grab flex-col active:cursor-grabbing"
+              className="col-start-1 row-start-1 flex cursor-grab flex-col active:cursor-grabbing"
+              style={{
+                zIndex: active ? 2 : 1,
+                pointerEvents: active ? "auto" : "none",
+              }}
             >
-              <SlideOne rotation={rotation} reduced={!!reduced} />
+              {slide === 0 ? (
+                <SlideOne rotation={rotation} reduced={!!reduced} />
+              ) : (
+                <SlideTwo reduced={!!reduced} />
+              )}
             </motion.div>
-          ) : (
-            <motion.div
-              key="slide-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.45, ease: EASE }}
-              {...swipe}
-              className="flex flex-1 cursor-grab flex-col active:cursor-grabbing"
-            >
-              <SlideTwo reduced={!!reduced} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+          );
+        })}
       </div>
 
       {/* Controls ride on the faded base of the poster */}
-      <div className="shell pointer-events-none relative z-30 flex items-center justify-between gap-6 pb-5 pt-2">
+      <div className="shell pointer-events-none relative z-30 flex items-center justify-between gap-6 pb-3 pt-1 md:pb-5 md:pt-2">
         <div className="pointer-events-auto flex items-center gap-2.5">
           {[0, 1].map((i) => (
             <button
@@ -148,7 +146,7 @@ function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean })
 
   return (
     <div className="relative flex flex-1 flex-col">
-      <div className="shell relative z-20 grid flex-1 content-start gap-12 pt-4 md:grid-cols-[1.05fr_0.95fr] md:items-start md:gap-10 md:pt-10">
+      <div className="shell relative z-20 grid content-start gap-6 pt-2 md:flex-1 md:grid-cols-[1.05fr_0.95fr] md:items-start md:gap-10 md:pt-10">
         {/* Left: the pitch */}
         <div>
           <motion.p
@@ -235,12 +233,12 @@ function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean })
       </div>
 
       {/* The poster word, clipped by the base of the hero */}
-      <div className="relative z-10 mt-auto select-none">
+      <div className="relative z-10 mt-8 select-none md:mt-auto">
         <motion.p
           initial={reduced ? undefined : { y: 60, opacity: 0 }}
           animate={reduced ? undefined : { y: 0, opacity: 1 }}
           transition={{ duration: 0.95, ease: EASE, delay: 0.1 }}
-          className="poster-word translate-y-[9%]"
+          className="poster-word translate-y-0 md:translate-y-[9%]"
         >
           Designer
         </motion.p>
@@ -263,21 +261,21 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
     <div className="relative flex flex-1 flex-col">
       <div className="shell relative flex flex-1 flex-col">
         {/* Ghost word behind the portrait */}
-        <div className="pointer-events-none absolute inset-x-0 top-[16%] z-0 overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-[13%] z-0 overflow-hidden">
           <p className="ghost-word">{site.owner}</p>
         </div>
 
         {/* Portrait, tags and stat cards */}
-        <div className="relative z-10 mx-auto mt-6 w-full max-w-[720px] md:mt-2">
+        <div className="relative z-10 mx-auto mt-2 flex w-full max-w-[720px] flex-1 flex-col justify-center md:mt-2">
           <motion.div
             initial={reduced ? undefined : { opacity: 0, y: 26, scale: 0.98 }}
             animate={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, ease: EASE, delay: 0.08 }}
-            className="relative mx-auto w-[236px] sm:w-[286px] md:w-[340px]"
+            className="relative mx-auto w-[252px] sm:w-[286px] md:w-[340px]"
           >
             <div
               className="portrait-shell fade-bottom relative w-full"
-              style={{ height: "clamp(268px, 36vw, 400px)" }}
+              style={{ height: "clamp(268px, min(34vw, 38vh), 400px)" }}
             >
               <Portrait />
             </div>
@@ -325,7 +323,7 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
         </div>
 
         {/* Greeting + headline, bottom-left, as in the reference */}
-        <div className="relative z-20 mt-8 flex flex-col gap-6 pb-2 md:mt-4 md:flex-row md:items-end md:justify-between">
+        <div className="relative z-20 mt-6 flex flex-col gap-5 pb-1 md:mt-4 md:flex-row md:items-end md:justify-between">
           <div>
             <motion.p
               {...stagger(0.2)}

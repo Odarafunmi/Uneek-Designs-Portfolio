@@ -27,7 +27,7 @@ Node 20+ recommended.
 
 | Route | What it does |
 | --- | --- |
-| `/` | Two-slide hero, marquee, studio intro, featured work, categories, services, testimonials, journal, CTA |
+| `/` | Two-slide hero, marquee, compact studio intro (one paragraph + three capability chips + 2×2 stats), featured work, categories, services, testimonials, journal, CTA |
 | `/work` | All 16 projects grouped by discipline, plus category cards |
 | `/work/[category]` | Branding / Social Media / Product Adverts / Hobbies |
 | `/work/[category]/[project]` | Project case study with brief, deliverables and next-project link |
@@ -106,7 +106,10 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
     "PECULIAR" behind it, floating discipline pills (Brand identity / Product design /
     Social media) and glass stat cards that count up, with "Hey, I'm Peculiar." + the
     discipline headline bottom-left and CTAs bottom-right.
-  - Both slides fill `100svh` and share the same height, so switching never shifts the page.
+  - Both slides are stacked in one CSS grid cell, so the row is always as tall as the
+    taller slide: switching (or autoplaying) never shifts the page. From `md` up the hero
+    is `100svh`; on phones it is content-sized (~680–700 px) so there is no dead band
+    under the CTAs. Slide 2 distributes the extra height around the portrait.
   - No orange: gradients run deep red → brand red → bright red, grey + black/white secondary.
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
@@ -122,9 +125,13 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   (`components/doodles.tsx`).
 - **Reduced motion**: Lenis is skipped, reveals render instantly, the marquee stops, the
   3D object is replaced by a static SVG, and all CSS animation is neutralised.
-- **3D**: one hero object (torus knot in brand red) in `components/hero-object.tsx`,
-  lazy-loaded with `next/dynamic`, only mounted on large screens with 4+ cores and no
-  reduced-motion preference; static SVG fallback otherwise.
+- **3D**: one torus-knot object (brand-red lighting) in `components/hero-object.tsx`,
+  used three times as a low-key watermark — never inside the hero content:
+  `components/ui/cta-band.tsx` (bottom-right of the dark CTA panel) and twice on the home
+  page beside the "Selected work" and "From the studio" section headings. It is lazy-loaded
+  through `components/hero-object-lazy.tsx`, only mounts on large screens with 4+ cores and
+  no reduced-motion preference, pauses its render loop when scrolled out of view, and falls
+  back to a static SVG otherwise.
 - **Contrast**: red is used for large type and filled buttons only (`--red-ink` is a
   darker red for small text in light mode and a lighter red in dark mode), body text is
   `--text` / `--text-muted` at 4.5:1+.

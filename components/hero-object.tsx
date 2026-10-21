@@ -76,6 +76,7 @@ function Fallback({ className }: { className?: string }) {
 export function HeroObject({ className = "" }: { className?: string }) {
   const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [active, setActive] = useState(true);
   const holder = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -93,10 +94,10 @@ export function HeroObject({ className = "" }: { className?: string }) {
     if (!enabled || !holder.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
+        setVisible(true);
+        // Pause the render loop once the object scrolls away, so multiple
+        // instances never cost GPU time at the same moment.
+        setActive(entry.isIntersecting);
       },
       { rootMargin: "120px" },
     );
@@ -111,6 +112,7 @@ export function HeroObject({ className = "" }: { className?: string }) {
           dpr={[1, 1.75]}
           camera={{ position: [0, 0, 5.2], fov: 38 }}
           gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+          frameloop={active ? "always" : "never"}
           style={{ background: "transparent" }}
         >
           <ambientLight intensity={0.65} />
