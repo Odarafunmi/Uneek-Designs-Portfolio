@@ -642,17 +642,19 @@
     -webkit-mask-image: linear-gradient(
       to bottom,
       #000 0%,
-      #000 80%,
-      rgba(0, 0, 0, 0.88) 89%,
-      rgba(0, 0, 0, 0.5) 95%,
+      #000 86%,
+      rgba(0, 0, 0, 0.94) 90%,
+      rgba(0, 0, 0, 0.72) 95%,
+      rgba(0, 0, 0, 0.36) 98%,
       transparent 100%
     );
     mask-image: linear-gradient(
       to bottom,
       #000 0%,
-      #000 80%,
-      rgba(0, 0, 0, 0.88) 89%,
-      rgba(0, 0, 0, 0.5) 95%,
+      #000 86%,
+      rgba(0, 0, 0, 0.94) 90%,
+      rgba(0, 0, 0, 0.72) 95%,
+      rgba(0, 0, 0, 0.36) 98%,
       transparent 100%
     );
   }
@@ -731,14 +733,23 @@
   }
 
   /* --- the founder's photograph, cut out and lit to sit inside the arch ----- */
-  .portrait-photo {
-    object-fit: contain;
-    object-position: center bottom;
-    /* above the glow, below the finishing pass */
+  /* the photo is deliberately wider than the arch: it is cropped by it, so the
+     subject fills the frame instead of floating in the middle of it */
+  .portrait-photo-wrap {
+    position: absolute;
+    /* a breath of air between the crown and the arch */
+    top: 2.5%;
+    left: 50%;
+    width: 106%;
+    transform: translateX(-50%);
     z-index: 1;
-    /* the asset carries its own headroom, so it sits inside the arch as drawn */
-    transform: none;
-    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.55));
+    pointer-events: none;
+  }
+
+  .portrait-photo {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
   }
 
   .portrait-light {
