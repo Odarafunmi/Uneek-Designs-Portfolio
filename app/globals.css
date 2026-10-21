@@ -674,6 +674,42 @@
       radial-gradient(70% 55% at 26% 6%, rgba(255, 255, 255, 0.3), transparent 62%),
       radial-gradient(60% 45% at 80% 92%, rgba(0, 0, 0, 0.28), transparent 70%);
     mix-blend-mode: soft-light;
+    z-index: 2;
+  }
+
+  /* --- the founder's photograph, cut out and lit to sit inside the arch ----- */
+  .portrait-photo {
+    object-fit: contain;
+    object-position: center bottom;
+    z-index: 1;
+    /* the asset carries its own headroom, so it sits inside the arch as drawn */
+    transform: none;
+    /* a whisper of warmth so the studio shot belongs to the red panel without
+       touching the face; brightness/contrast stay untouched */
+    filter: drop-shadow(0 18px 28px rgba(80, 0, 0, 0.28));
+  }
+
+  .portrait-light {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    /* red rim light from the arch behind, and a soft top-left key */
+    background:
+      radial-gradient(120% 78% at 50% 104%, rgba(158, 0, 0, 0.55), transparent 58%),
+      radial-gradient(58% 40% at 22% 2%, rgba(255, 255, 255, 0.16), transparent 66%);
+    mix-blend-mode: soft-light;
+  }
+
+  [data-theme="dark"] .portrait-light {
+    background:
+      radial-gradient(120% 78% at 50% 104%, rgba(120, 0, 0, 0.7), transparent 60%),
+      radial-gradient(58% 40% at 22% 2%, rgba(255, 255, 255, 0.1), transparent 66%);
+  }
+
+  /* in dark mode the panel closes down around him, so cool the deepest reds */
+  [data-theme="dark"] .portrait-shell {
+    box-shadow: 0 50px 90px -50px rgba(238, 3, 3, 0.45);
   }
 
   /* ---------------------------------------------------------------------------

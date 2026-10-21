@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -277,7 +278,16 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
               className="portrait-shell fade-bottom relative w-full"
               style={{ height: "clamp(280px, min(36vw, 40vh), 440px)" }}
             >
-              <Portrait />
+              <Image
+                src="/brand/portrait.webp"
+                alt={`${site.owner}, brand and product designer`}
+                fill
+                sizes="(min-width: 768px) 380px, (min-width: 640px) 310px, 260px"
+                priority={false}
+                className="portrait-photo"
+              />
+              {/* light + shade, so the cut-out sits inside the arch in either theme */}
+              <div className="portrait-light" aria-hidden />
             </div>
 
             {/* floating discipline tags */}
@@ -339,75 +349,3 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
   );
 }
 
-/** Stylised portrait placeholder — swap in a real photo via <Image />. */
-function Portrait() {
-  return (
-    <svg
-      viewBox="0 0 400 500"
-      className="h-full w-full"
-      preserveAspectRatio="xMidYMax slice"
-      aria-hidden
-    >
-      <defs>
-        <linearGradient id="figure" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#241A16" />
-          <stop offset="100%" stopColor="#120C0A" />
-        </linearGradient>
-        <linearGradient id="rim" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
-          <stop offset="100%" stopColor="#FFE1E1" stopOpacity="0.6" />
-        </linearGradient>
-      </defs>
-
-      <path d="M30 500c6-92 48-150 114-170h112c66 20 108 78 114 170Z" fill="url(#figure)" />
-      <path
-        d="M148 340c16 22 34 34 52 34s36-12 52-34"
-        stroke="#FFE1E1"
-        strokeOpacity="0.16"
-        strokeWidth="3"
-        fill="none"
-      />
-      <path d="M174 280h52v66c0 14-52 14-52 0Z" fill="#1B1210" />
-      <ellipse cx="200" cy="212" rx="74" ry="86" fill="url(#figure)" />
-
-      <g fill="url(#figure)">
-        <circle cx="136" cy="196" r="42" />
-        <circle cx="264" cy="196" r="42" />
-        <circle cx="168" cy="140" r="44" />
-        <circle cx="232" cy="140" r="44" />
-        <circle cx="200" cy="128" r="46" />
-        <ellipse cx="200" cy="196" rx="76" ry="70" />
-      </g>
-
-      <path
-        d="M200 146c30 0 52 26 52 62 0 40-23 72-52 72s-52-32-52-72c0-36 22-62 52-62Z"
-        fill="#2C2019"
-      />
-      <path
-        d="M252 168c10 16 14 36 12 58-2 24-12 44-26 58"
-        stroke="url(#rim)"
-        strokeWidth="5"
-        strokeLinecap="round"
-        fill="none"
-      />
-
-      <g stroke="#FFE1E1" strokeOpacity="0.92" strokeWidth="4" fill="none" strokeLinecap="round">
-        <rect x="154" y="188" width="42" height="32" rx="12" fill="#FFE1E1" fillOpacity="0.14" />
-        <rect x="204" y="188" width="42" height="32" rx="12" fill="#FFE1E1" fillOpacity="0.14" />
-        <path d="M196 202h8" />
-        <path d="M154 198l-12-4M246 198l12-4" />
-      </g>
-
-      <path
-        d="M186 246c9 8 19 8 28 0"
-        stroke="#FFE1E1"
-        strokeOpacity="0.55"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <circle cx="146" cy="238" r="4.5" fill="#FFE1E1" fillOpacity="0.85" />
-      <path d="M170 378h60" stroke="#FFE1E1" strokeOpacity="0.14" strokeWidth="2" />
-    </svg>
-  );
-}
