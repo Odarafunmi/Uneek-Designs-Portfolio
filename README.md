@@ -27,7 +27,7 @@ Node 20+ recommended.
 
 | Route | What it does |
 | --- | --- |
-| `/` | Two-slide hero, marquee, compact studio intro (one paragraph + three capability chips + 2×2 stats), featured work, categories, services, journal, CTA. The testimonials block only renders once real quotes are added to `content/work.ts` |
+| `/` | Two-slide hero, marquee, compact studio intro (one paragraph + three capability chips + 2×2 stats), categories, services, journal, CTA. The testimonials block only renders once real quotes are added to `content/work.ts`, and the three-up "recent work" grid is parked behind `SHOW_RECENT_WORK` in `app/page.tsx` |
 | `/work` | All 16 projects grouped by discipline, plus category cards |
 | `/work/[category]` | Branding / Social Media / Product Adverts / Hobbies |
 | `/work/[category]/[project]` | Project case study with brief, deliverables and next-project link |
@@ -117,6 +117,12 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
   then remembers the visitor's choice in `localStorage`, with a 300 ms colour transition.
+- **Blog covers are drawn, not photographed.** `components/blog-cover.tsx` renders each
+  post cover as SVG in the studio's social-post language — near-black grid field, one
+  oversized display glyph dissolving into the footer, spaced caps in an editorial rail and
+  red only where it earns attention. Two shapes: `portrait` (4/5 card crop) and `wide`
+  (2:1 post hero, swapped in at `sm`). New posts fall back to a monogram cover, so adding an
+  entry to `content/posts.ts` never needs an image.
 - **Cards never crop the artwork.** `components/ui/work-image.tsx` defaults to
   `object-contain` on a matted surface, so a brand-book page or a wide key visual is shown
   in full — nothing is cut or stretched. Frames adapt: brand-identity cards use a portrait
@@ -130,6 +136,9 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   generated SVG cover, so a private or moved folder never shows a broken image.
 - **Custom classes** (`.btn`, `.card`, `.shell`, `.giant`, …) are declared inside
   `@layer components`, which keeps Tailwind utilities able to override them.
+- **Studio stats** live in `content/site.ts` (`yearsExperience: 3`, `projectsDelivered: 50`,
+  `brandsOnRetainer: 5`); contact details — email, phone and WhatsApp — are the same single
+  source, so every page, the QR code and the `wa.me` links stay in step.
 - **Counters**: the home-page stats use `components/ui/count-up.tsx`, which counts up
   once when scrolled into view (~760 ms, ease-out) and shows the final value immediately
   under `prefers-reduced-motion`.

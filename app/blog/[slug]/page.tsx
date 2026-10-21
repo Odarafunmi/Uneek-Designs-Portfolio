@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Clock } from "lucide-react";
-import { CoverArt } from "@/components/art";
+import { BlogCover } from "@/components/blog-cover";
 import { CtaBand } from "@/components/ui/cta-band";
 import { Reveal } from "@/components/ui/reveal";
 import { formatDate, getPost, posts, sortedPosts } from "@/content/posts";
@@ -42,6 +42,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const others = sortedPosts()
     .filter((p) => p.slug !== post.slug)
     .slice(0, 2);
+
+  const index = Math.max(0, sortedPosts().findIndex((p) => p.slug === post.slug));
 
   return (
     <>
@@ -90,8 +92,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
         <Reveal>
           <div className="shell">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-[26px] border border-line md:aspect-[2.1/1]">
-              <CoverArt variant={post.art} label={post.title} />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[26px] border border-line sm:aspect-[2/1]">
+              <BlogCover slug={post.slug} index={index} shape="portrait" className="sm:hidden" />
+              <BlogCover slug={post.slug} index={index} shape="wide" className="hidden sm:block" />
             </div>
           </div>
         </Reveal>

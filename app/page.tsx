@@ -14,6 +14,12 @@ import { services } from "@/content/services";
 import { sortedPosts } from "@/content/posts";
 import { site } from "@/content/site";
 
+/**
+ * The "recent work" block is parked for now. Flip to `true` to bring the
+ * three-up featured grid back — nothing else in the page depends on it.
+ */
+const SHOW_RECENT_WORK = false;
+
 const CLIENTS = [
   "Kiisi Collections",
   "Zyntra Fitness",
@@ -142,10 +148,10 @@ export default function HomePage() {
             </Reveal>
 
             {[
-              { value: site.projectsDelivered, suffix: "+", label: "Projects shipped" },
-              { value: site.yearsExperience, suffix: " yrs", label: "Running the studio" },
-              { value: 12, suffix: "", label: "Brands on retainer" },
-              { value: 4.9, suffix: "", decimals: 1, label: "Average client rating" },
+              { value: site.projectsDelivered, suffix: "+", decimals: 0, label: "Projects worked on" },
+              { value: site.yearsExperience, suffix: " yrs", decimals: 0, label: "Running the studio" },
+              { value: site.brandsOnRetainer, suffix: "", decimals: 0, label: "Brands on retainer" },
+              { value: categories.length, suffix: "", decimals: 0, label: "Disciplines covered" },
             ].map((stat, index) => (
               <Reveal key={stat.label} delay={0.06 * index}>
                 <div className="card flex h-full flex-col justify-between p-5">
@@ -153,7 +159,7 @@ export default function HomePage() {
                     <CountUp
                       value={stat.value}
                       suffix={stat.suffix}
-                      decimals={stat.decimals ?? 0}
+                      decimals={stat.decimals}
                       duration={760}
                     />
                   </p>
@@ -165,8 +171,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured work */}
-      <section className="section-tight relative overflow-hidden border-t border-line">
+      {/* Featured work — parked until SHOW_RECENT_WORK is flipped back on */}
+      {SHOW_RECENT_WORK && (
+        <section className="section-tight relative overflow-hidden border-t border-line">
         <div
           className="pointer-events-none absolute right-0 top-16 h-[180px] w-[180px] opacity-[0.14] dark:opacity-55 [mask-image:radial-gradient(circle_at_50%_50%,#000_35%,transparent_72%)] lg:block hidden"
           aria-hidden
@@ -196,6 +203,7 @@ export default function HomePage() {
           </RevealGroup>
         </div>
       </section>
+      )}
 
       {/* Categories */}
       <section className="section-tight">
@@ -203,7 +211,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Browse by discipline"
             title="Four drawers, one studio."
-            copy="Branding, social, product adverts and the personal work that keeps the ideas sharp."
+            copy="Brand identity, social media, product adverts and print — four drawers, one system underneath them."
           />
           <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {categories.map((category, index) => (

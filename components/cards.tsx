@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
-import { CoverArt } from "@/components/art";
 import { WorkImage } from "@/components/ui/work-image";
+import { BlogCover } from "@/components/blog-cover";
 import { useBooking } from "@/components/providers/booking";
 import type {
   ArtVariant,
@@ -308,9 +308,9 @@ export function PostCard({ post, index = 0 }: { post: Post; index?: number }) {
   return (
     <TiltWrap className="h-full">
       <Link href={`/blog/${post.slug}`} className="card card-hover group flex h-full flex-col overflow-hidden">
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-[4/5] overflow-hidden">
           <div className="zoom-img h-full w-full">
-            <CoverArt variant={post.art} label={post.title} />
+            <BlogCover slug={post.slug} index={index} />
           </div>
           <span className="arrow-badge absolute right-4 top-4 bg-white/85 text-black backdrop-blur-md border-white/40">
             <ArrowUpRight size={16} />
