@@ -123,13 +123,15 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   red only where it earns attention. Two shapes: `portrait` (4/5 card crop) and `wide`
   (2:1 post hero, swapped in at `sm`). New posts fall back to a monogram cover, so adding an
   entry to `content/posts.ts` never needs an image.
-- **Custom cursor** (`components/ui/cursor.tsx`): a red, shaded core leads and a ring trails
-  it, both easing toward the pointer. It is mounted once in `app/layout.tsx`, only activates
-  for fine pointers (hybrid touch laptops included) and never for `prefers-reduced-motion`;
-  otherwise the native cursor is untouched. Interactive elements open the ring, elements with
-  `data-cursor="Label"` print a label chip beside it (flipping left near the viewport edge),
-  text fields collapse it into a caret, and a press fires one expanding ring. Colours,
-  sizes and the press burst all live in the cursor block of `app/globals.css`.
+- **Custom cursor** (`components/ui/cursor.tsx`): a traditional arrow pointer, redrawn in
+  brand red with a white rim, a faint dark edge and a soft shadow, so it stays legible over
+  white pages, near-black artwork and red buttons alike. It tracks the pointer with a short
+  weighted ease, lifts 12% and warms its glow over anything clickable, prints a label chip
+  beside the pointer for elements with `data-cursor="Label"` (flipping left near the viewport
+  edge), turns into a drawn red I-beam over text fields, and compresses on press. It is
+  mounted once in `app/layout.tsx`, only activates for fine pointers (hybrid touch laptops
+  included) and never for `prefers-reduced-motion`; otherwise the OS cursor is untouched.
+  Shape, colours and states live in the cursor block of `app/globals.css`.
 - **Cards lean toward the pointer.** `TiltWrap` (`components/cards.tsx`) rotates a card up to
   ~9° on each axis with a slight lift, tracks the pointer through `--tilt-x` / `--tilt-y`
   custom properties (so only a CSS transform has to run), and springs back on leave.
