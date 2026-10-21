@@ -165,7 +165,7 @@ export const projects: Project[] = [
     year: 2025,
     deliverables: ["Social templates", "Campaign posts", "Motion-ready art"],
     art: "cards",
-    cover: drive("11au-iZvxs586_w5dCK9FZYM0gIywN_4u"),
+    cover: drive("15So7sojH52hxIvWNPJOpEo6dFWbK2nly"),
     gallery: [
       drive("1KEZBoVp6SmjV5DSZbNAB6bmaOTSDTelG", 1200),
       drive("13yonNU9Cp0Dz8Zmv6u_HEb4qChbiYGYi", 1200),
@@ -432,7 +432,7 @@ export const webProjects: WebProject[] = [
     slug: "uneek-studio",
     title: "Uneek Designs",
     description:
-      "This site. Built around a two-slide hero, a theme-aware doodle layer and a WhatsApp-first booking flow — no form, no waiting.",
+      "This site. Built around a two-slide hero, a theme-aware backdrop and a WhatsApp-first booking flow — no form, no waiting.",
     year: 2026,
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "React Three Fiber"],
     liveUrl: "/",

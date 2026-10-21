@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/page-header";
 import { CtaBand } from "@/components/ui/cta-band";
-import { CategoryCard, ProjectCard, TiltWrap } from "@/components/cards";
+import { ProjectCard, TiltWrap } from "@/components/cards";
 import { RevealGroup, Reveal, RevealItem } from "@/components/ui/reveal";
 import { categories, projects, projectsByCategory } from "@/content/work";
 import { site } from "@/content/site";
@@ -26,26 +26,6 @@ export default function WorkPage() {
         copy="Identities, campaign systems, product adverts and print — every project starts with the same question: what should this make people do?"
         meta={[`${projects.length} projects`, `${categories.length} categories`, "2024 — 2026"]}
       />
-
-      <section className="section-tight">
-        <div className="shell">
-          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {categories.map((category, index) => (
-              <RevealItem
-                key={category.slug}
-                className={index % 3 === 0 ? "sm:col-span-2 lg:col-span-2" : "sm:col-span-2 lg:col-span-1"}
-              >
-                <CategoryCard
-                  category={category}
-                  count={projectsByCategory(category.slug).length}
-                  index={index}
-                  feature={index % 3 === 0}
-                />
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
 
       {categories.map((category) => {
         const items = projectsByCategory(category.slug);

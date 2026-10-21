@@ -295,7 +295,7 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
             </motion.span>
             <motion.span
               {...stagger(0.46)}
-              className="tag-pill absolute -right-2 bottom-[16%] rotate-[5deg] sm:-right-12"
+              className="tag-pill absolute -right-2 bottom-[30%] rotate-[5deg] sm:-right-12"
             >
               Social media
             </motion.span>
@@ -312,9 +312,9 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
             </motion.div>
             <motion.div
               {...stagger(0.42)}
-              className="float-card absolute -right-6 bottom-[-6%] hidden w-[170px] sm:block md:-right-20"
+              className="float-card absolute -right-6 bottom-[-13%] hidden w-[170px] sm:block md:-right-20"
             >
-              <p className="text-[11px] leading-tight text-muted">Projects shipped</p>
+              <p className="text-[11px] leading-tight text-muted">Projects worked on</p>
               <p className="mt-1 font-display text-[26px] font-semibold leading-none tracking-[-0.04em] tabular-nums">
                 <CountUp value={site.projectsDelivered} suffix="+" duration={1000} />
               </p>

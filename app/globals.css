@@ -695,31 +695,6 @@
   }
 
   /* ---------------------------------------------------------------------------
-     Doodles
-  --------------------------------------------------------------------------- */
-  .doodle {
-    position: fixed;
-    pointer-events: none;
-    color: var(--text);
-    z-index: 5;
-    will-change: transform;
-  }
-
-  .doodle--red {
-    color: var(--red);
-  }
-
-  .doodle--float {
-    animation: float 8s ease-in-out infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .doodle--float {
-      animation: none;
-    }
-  }
-
-  /* ---------------------------------------------------------------------------
      Editorial article body
   --------------------------------------------------------------------------- */
   .prose-uneek {

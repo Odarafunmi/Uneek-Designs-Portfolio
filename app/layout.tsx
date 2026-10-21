@@ -5,7 +5,6 @@ import { BookingProvider } from "@/components/providers/booking";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { Doodles } from "@/components/doodles";
 import { Cursor } from "@/components/ui/cursor";
 import { site } from "@/content/site";
 
@@ -69,7 +68,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <SmoothScroll />
             <Cursor />
             <Nav />
-            <Doodles />
             <main id="main" className="relative z-10">
               {children}
             </main>

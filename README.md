@@ -2,7 +2,7 @@
 
 The portfolio site for **Uneek Designs**, the studio of Peculiar — a Lagos-based brand
 and product designer. Built to the v2 style guide and the PRD: premium editorial layout,
-huge display type, flowing red gradients, cursor-aware doodles, light/dark mode on every
+huge display type, flowing red gradients, cursor-aware hovers, light/dark mode on every
 page, and a WhatsApp-first booking flow.
 
 Live-ish stack: **Next.js 15 (App Router) · React 19 · Tailwind CSS 4 · Framer Motion ·
@@ -147,8 +147,9 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
 - **Cards never crop the artwork.** `components/ui/work-image.tsx` defaults to
   `object-contain` on a matted surface, so a brand-book page or a wide key visual is shown
   in full — nothing is cut or stretched. Frames adapt: brand-identity cards use a portrait
-  `4/5`, product/social art uses `4/3`, and the category grid on `/work` is a bento
-  (2-wide feature tiles alternating with 1-wide tiles).
+  `4/5` and product/social art uses `4/3`. `/work` opens straight into the project cards,
+  grouped by discipline — there are no separate category tiles, since each card already
+  carries its category and links through to the project and its folder.
 - **Real work comes from the studio's Google Drive** (`My Portfolio`). `content/work.ts`
   declares each project with a `cover`, an optional `gallery` and a `driveUrl`, using the
   public `https://drive.google.com/thumbnail?id=…&sz=w1400` endpoint — no build-time fetch,
@@ -164,9 +165,9 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   once when scrolled into view (~760 ms, ease-out) and shows the final value immediately
   under `prefers-reduced-motion`.
 - **Motion**: reveal-on-scroll (`components/ui/reveal.tsx`), page transitions
-  (`app/template.tsx`), Lenis smooth scroll (`components/smooth-scroll.tsx`), hero
-  parallax, and doodles that lean toward the pointer and drift with scroll
-  (`components/doodles.tsx`).
+  (`app/template.tsx`), Lenis smooth scroll (`components/smooth-scroll.tsx`) and hero
+  parallax. The floating background doodles were removed — pages sit on the mesh gradient
+  alone.
 - **Reduced motion**: Lenis is skipped, reveals render instantly, the marquee stops, the
   3D object is replaced by a static SVG, and all CSS animation is neutralised.
 - **3D**: one torus-knot object (brand-red lighting) in `components/hero-object.tsx`,
@@ -234,7 +235,7 @@ To go from flat files to the database:
 - Icon-only buttons have `aria-label`s; the hero slider exposes slide buttons with
   `aria-current`; the booking modal is `role="dialog"` + `aria-modal` and closes on
   Escape.
-- Decorative art and doodles are `aria-hidden`; the QR card has a text alternative below.
+- Decorative art is `aria-hidden`; the QR card has a text alternative below.
 - Everything respects `prefers-reduced-motion` and `prefers-color-scheme`.
 
 ---
