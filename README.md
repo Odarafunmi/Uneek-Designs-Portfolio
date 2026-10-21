@@ -117,6 +117,10 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
   then remembers the visitor's choice in `localStorage`, with a 300 ms colour transition.
+- **Real cover art**: every project, category and web project accepts an optional
+  `cover` field (e.g. `cover: "/work/zuri-coffee.jpg"`). When set, the card and the project
+  page render that image with `next/image`; when it is absent they fall back to the
+  generated SVG artwork, so the site works before any photography exists.
 - **Custom classes** (`.btn`, `.card`, `.shell`, `.giant`, …) are declared inside
   `@layer components`, which keeps Tailwind utilities able to override them.
 - **Counters**: the home-page stats use `components/ui/count-up.tsx`, which counts up

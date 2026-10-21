@@ -18,6 +18,8 @@ export type Category = {
   tagline: string;
   blurb: string;
   art: ArtVariant;
+  /** Real cover image in `public/` — falls back to the generated art when absent. */
+  cover?: string;
 };
 
 export type Project = {
@@ -30,6 +32,8 @@ export type Project = {
   year: number;
   deliverables: string[];
   art: ArtVariant;
+  /** Real cover image in `public/` — falls back to the generated art when absent. */
+  cover?: string;
   featured?: boolean;
   /** Optional Behance / Drive link. Leave undefined to route enquiries to WhatsApp. */
   externalUrl?: string;
@@ -43,6 +47,8 @@ export type WebProject = {
   tech: string[];
   liveUrl?: string;
   art: ArtVariant;
+  /** Real cover image in `public/` — falls back to the generated art when absent. */
+  cover?: string;
   featured?: boolean;
 };
 

@@ -1,12 +1,53 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import { CoverArt } from "@/components/art";
 import { useBooking } from "@/components/providers/booking";
-import type { Category, Post, Project, Service, WebProject } from "@/content/types";
+import type {
+  ArtVariant,
+  Category,
+  Post,
+  Project,
+  Service,
+  WebProject,
+} from "@/content/types";
 import { formatDate } from "@/content/posts";
+
+
+/**
+ * Card artwork: uses the real portfolio image when one is supplied in the content
+ * files, otherwise falls back to the generated SVG cover.
+ */
+function Cover({
+  src,
+  variant,
+  label,
+  seed,
+  sizes,
+}: {
+  src?: string;
+  variant: ArtVariant;
+  label: string;
+  seed?: number;
+  sizes: string;
+}) {
+  if (!src) return <CoverArt variant={variant} label={label} seed={seed} />;
+
+  return (
+    <Image
+      src={src}
+      alt={label}
+      fill
+      sizes={sizes}
+      className="object-cover"
+    />
+  );
+}
+
+const CARD_SIZES = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 
 const tilt = {
   rest: { rotateX: 0, rotateY: 0, y: 0 },
@@ -64,8 +105,14 @@ export function CategoryCard({
         className="card card-hover group flex h-full flex-col overflow-hidden"
       >
         <div className="relative aspect-[5/4] overflow-hidden">
-          <div className="zoom-img h-full w-full">
-            <CoverArt variant={category.art} label={category.name} seed={index} />
+          <div className="zoom-img relative h-full w-full">
+            <Cover
+              src={category.cover}
+              variant={category.art}
+              label={category.name}
+              seed={index}
+              sizes={CARD_SIZES}
+            />
           </div>
           <span className="absolute left-4 top-4 rounded-full bg-black/25 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white backdrop-blur-md">
             {String(index + 1).padStart(2, "0")}
@@ -101,8 +148,14 @@ export function ProjectCard({
   const content = (
     <>
       <div className="relative aspect-[4/5] overflow-hidden">
-        <div className="zoom-img h-full w-full">
-          <CoverArt variant={project.art} label={project.title} seed={index} />
+        <div className="zoom-img relative h-full w-full">
+          <Cover
+            src={project.cover}
+            variant={project.art}
+            label={project.title}
+            seed={index}
+            sizes={CARD_SIZES}
+          />
         </div>
         <span className="absolute left-4 top-4 rounded-full bg-black/25 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white backdrop-blur-md">
           {project.year}
@@ -154,8 +207,14 @@ export function WebProjectCard({ project, index = 0 }: { project: WebProject; in
     <TiltWrap className="h-full">
       <article className="card card-hover group flex h-full flex-col overflow-hidden">
         <div className="relative aspect-[16/10] overflow-hidden">
-          <div className="zoom-img h-full w-full">
-            <CoverArt variant={project.art} label={project.title} seed={index} />
+          <div className="zoom-img relative h-full w-full">
+            <Cover
+              src={project.cover}
+              variant={project.art}
+              label={project.title}
+              seed={index}
+              sizes={CARD_SIZES}
+            />
           </div>
           <span className="arrow-badge absolute right-4 top-4 bg-white/85 text-black backdrop-blur-md border-white/40">
             <ExternalLink size={15} />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -102,7 +103,18 @@ export default async function ProjectPage({
         <Reveal>
           <div className="shell">
             <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] border border-line">
-              <CoverArt variant={project.art} label={project.title} />
+              {project.cover ? (
+                <Image
+                  src={project.cover}
+                  alt={project.title}
+                  fill
+                  priority
+                  sizes="(min-width: 1200px) 1200px, 100vw"
+                  className="object-cover"
+                />
+              ) : (
+                <CoverArt variant={project.art} label={project.title} />
+              )}
             </div>
           </div>
         </Reveal>
