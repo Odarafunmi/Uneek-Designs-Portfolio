@@ -101,7 +101,9 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
     "Available for work" pill, the headline "Brand & UI/UX Designer based in Lagos" on the
     left, the micro-copy + rotating "I design …" line + Say hello button on the right, and
     a giant `DESIGNER` anchored to the bottom of the viewport that dissolves upward —
-    clipped at the base like the reference.
+    clipped at the base like the reference. The word is sized in container units against
+    the shell's content box (`.poster-fit` / `22.6cqw`), so its left and right edges line
+    up with the headline and the page gutters at every width instead of bleeding past them.
   - *Slide 2 — the founder (second reference).* Portrait inside a red arch, a huge ghosted
     "PECULIAR" behind it, floating discipline pills (Brand identity / Product design /
     Social media) and glass stat cards that count up, with "Hey, I'm Peculiar." + the
@@ -161,12 +163,19 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   card grids sit on 24 px gaps and section headings keep 64 px clear above the grid. Card
   bodies use 24–32 px padding, the page header runs 144–192 px from the top, and the footer
   and CTA band carry 80–112 px of their own — so type never crowds the edges.
+- **Card rows** (`.card-grid`): card sections are a grid of `auto-fit` tracks whose
+  minimum is a third of the shell's content box. Three cards fill the row; if a section
+  only has two, the unused track collapses and both cards stretch to the full reading
+  width — no half-empty row, and never past the page gutters.
 - **Hero portrait**: slide two uses the founder's own photograph, background removed
-  (`public/brand/portrait.webp`, 832 × 1198 with the transparent headroom the arch needs).
-  It is cut out, colour-decontaminated at the edge (no beige fringe), and lit inside the arch
-  by `.portrait-light` — a red rim rising from the base plus a soft key from the top left,
-  both in `soft-light`, with a darker, cooler variant for dark mode. The face itself is never
-  retouched: no reshaping, no re-lighting of features, no cropping of the composition.
+  (`public/brand/portrait.webp`, 960 × 1307 — cut to the subject with a sliver of transparent
+  headroom). It is colour-decontaminated at the edge (no beige fringe) and lit inside the arch
+  by `.portrait-light` — red light spilling from the crown plus a soft base shade, both in
+  `soft-light`, with a darker, cooler variant for dark mode. The photo is deliberately wider
+  than the arch (`.portrait-photo-wrap`, 106 %) and cropped by it, so the subject fills the
+  frame instead of floating in the middle of it; `.fade-bottom` dissolves the base. The face
+  itself is never retouched: no reshaping, no re-lighting of features, no cropping of the
+  composition.
 - **Connect doodle** (`components/contact-actions.tsx`): on hover or keyboard focus the
   Connect button, a hand-drawn wire unspools out of both sides of it, ink nodes pop in along
   the way, a lit segment travels the wire and a little spark draws itself at the far end.

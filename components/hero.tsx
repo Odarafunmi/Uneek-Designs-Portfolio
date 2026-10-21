@@ -233,16 +233,21 @@ function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean })
         </div>
       </div>
 
-      {/* The poster word, clipped by the base of the hero */}
+      {/* The poster word, clipped by the base of the hero — held inside the
+          page gutters so its edges line up with the headline above it */}
       <div className="relative z-10 mt-8 select-none md:mt-auto">
-        <motion.p
-          initial={reduced ? undefined : { y: 60, opacity: 0 }}
-          animate={reduced ? undefined : { y: 0, opacity: 1 }}
-          transition={{ duration: 0.95, ease: EASE, delay: 0.1 }}
-          className="poster-word translate-y-0 md:translate-y-[6%]"
-        >
-          Designer
-        </motion.p>
+        <div className="shell">
+          <div className="poster-fit">
+            <motion.p
+              initial={reduced ? undefined : { y: 60, opacity: 0 }}
+              animate={reduced ? undefined : { y: 0, opacity: 1 }}
+              transition={{ duration: 0.95, ease: EASE, delay: 0.1 }}
+              className="poster-word translate-y-0 md:translate-y-[6%]"
+            >
+              Designer
+            </motion.p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -272,20 +277,22 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
             initial={reduced ? undefined : { opacity: 0, y: 26, scale: 0.98 }}
             animate={reduced ? undefined : { opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.85, ease: EASE, delay: 0.08 }}
-            className="relative mx-auto w-[260px] sm:w-[310px] md:w-[380px]"
+            className="relative mx-auto w-[240px] sm:w-[300px] md:w-[380px]"
           >
-            <div
-              className="portrait-shell fade-bottom relative w-full"
-              style={{ height: "clamp(280px, min(36vw, 40vh), 440px)" }}
-            >
-              <Image
-                src="/brand/portrait.webp"
-                alt={`${site.owner}, brand and product designer`}
-                fill
-                sizes="(min-width: 768px) 380px, (min-width: 640px) 310px, 260px"
-                priority={false}
-                className="portrait-photo"
-              />
+            <div className="portrait-shell fade-bottom relative h-[322px] w-full sm:h-[402px] md:h-[clamp(420px,_54vh,_500px)]">
+              {/* the portrait is cut out and scaled past the arch, so it fills the
+                  frame the way the reference does — no dead black at the sides */}
+              <div className="portrait-photo-wrap">
+                <Image
+                  src="/brand/portrait.webp"
+                  alt={`${site.owner}, brand and product designer`}
+                  width={960}
+                  height={1307}
+                  sizes="(min-width: 768px) 480px, (min-width: 640px) 380px, 300px"
+                  priority={false}
+                  className="portrait-photo"
+                />
+              </div>
               {/* light + shade, so the cut-out sits inside the arch in either theme */}
               <div className="portrait-light" aria-hidden />
             </div>
