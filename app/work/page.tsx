@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui/page-header";
 import { CtaBand } from "@/components/ui/cta-band";
-import { CategoryCard, ProjectCard } from "@/components/cards";
+import { CategoryCard, ProjectCard, TiltWrap } from "@/components/cards";
 import { RevealGroup, Reveal, RevealItem } from "@/components/ui/reveal";
 import { categories, projects, projectsByCategory } from "@/content/work";
 import { site } from "@/content/site";
@@ -97,6 +97,7 @@ export default function WorkPage() {
 
       <div className="shell">
         <Reveal>
+          <TiltWrap strength={3}>
           <div className="card flex flex-col items-start justify-between gap-6 p-7 sm:flex-row sm:items-center">
             <div>
               <p className="eyebrow mb-2">More on the drive</p>
@@ -114,6 +115,7 @@ export default function WorkPage() {
               View full portfolio
             </a>
           </div>
+          </TiltWrap>
         </Reveal>
       </div>
 

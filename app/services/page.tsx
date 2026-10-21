@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
-import { ServiceCard } from "@/components/cards";
+import { ServiceCard, TiltWrap } from "@/components/cards";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { CtaBand } from "@/components/ui/cta-band";
 import { services } from "@/content/services";
@@ -77,7 +77,9 @@ export default function ServicesPage() {
           <RevealGroup className="grid items-stretch gap-5 md:grid-cols-3">
             {services.map((service) => (
               <RevealItem key={service.slug} className="h-full">
-                <ServiceCard service={service} />
+                <TiltWrap strength={4} className="h-full">
+                  <ServiceCard service={service} />
+                </TiltWrap>
               </RevealItem>
             ))}
           </RevealGroup>

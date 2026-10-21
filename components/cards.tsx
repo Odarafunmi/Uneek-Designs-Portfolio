@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+import { useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import { WorkImage } from "@/components/ui/work-image";
 import { BlogCover } from "@/components/blog-cover";
@@ -19,43 +20,53 @@ import { formatDate } from "@/content/posts";
 
 const CARD_SIZES = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw";
 
-const tilt = {
-  rest: { rotateX: 0, rotateY: 0, y: 0 },
-};
-
-/** Card that leans a couple of degrees toward the pointer. */
-function TiltWrap({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+/**
+ * Card that leans toward the pointer.
+ *
+ * The whole card is rotated by up to ~7° on each axis and lifted slightly, then
+ * snaps back on leave. `.card` supplies the red halo (see globals.css), so the
+ * tilt only has to handle geometry. Exported so pages can wrap plain cards too.
+ */
+export function TiltWrap({
+  children,
+  className = "",
+  strength = 9,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  /** Maximum rotation in degrees on each axis. */
+  strength?: number;
+}) {
   const reduced = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
 
   if (reduced) return <div className={className}>{children}</div>;
 
   return (
-    <motion.div
-      className={className}
-      initial="rest"
-      animate="rest"
-      whileHover="hover"
+    <div
+      ref={ref}
+      className={`tilt-wrap ${className}`}
       onPointerMove={(event) => {
-        const target = event.currentTarget as HTMLElement;
-        const rect = target.getBoundingClientRect();
+        const el = event.currentTarget;
+        if (event.pointerType === "touch") return;
+        const rect = el.getBoundingClientRect();
         const px = (event.clientX - rect.left) / rect.width - 0.5;
         const py = (event.clientY - rect.top) / rect.height - 0.5;
-        target.style.setProperty("--tilt-x", `${(-py * 3).toFixed(2)}deg`);
-        target.style.setProperty("--tilt-y", `${(px * 3).toFixed(2)}deg`);
+        el.style.setProperty("--tilt-x", `${(-py * strength).toFixed(2)}deg`);
+        el.style.setProperty("--tilt-y", `${(px * strength).toFixed(2)}deg`);
+        el.style.setProperty("--tilt-lift", "1.018");
+        el.dataset.tilting = "true";
       }}
       onPointerLeave={(event) => {
-        const target = event.currentTarget as HTMLElement;
-        target.style.setProperty("--tilt-x", "0deg");
-        target.style.setProperty("--tilt-y", "0deg");
-      }}
-      style={{
-        transformStyle: "preserve-3d",
-        transform: "perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))",
-        transition: "transform 350ms cubic-bezier(0.22,1,0.36,1)",
+        const el = event.currentTarget;
+        el.style.setProperty("--tilt-x", "0deg");
+        el.style.setProperty("--tilt-y", "0deg");
+        el.style.setProperty("--tilt-lift", "1");
+        el.dataset.tilting = "false";
       }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -75,6 +86,7 @@ export function CategoryCard({
     <TiltWrap>
       <Link
         href={`/work/${category.slug}`}
+        data-cursor="View"
         className="card card-hover group flex h-full flex-col overflow-hidden"
       >
         <div
@@ -172,6 +184,7 @@ export function ProjectCard({
       ) : (
         <Link
           href={`/work/${project.category}/${project.slug}`}
+          data-cursor="View"
           className="card card-hover group flex h-full flex-col overflow-hidden"
           aria-label={`${project.title} — view details`}
         >
@@ -307,7 +320,11 @@ export function ServiceCard({ service }: { service: Service }) {
 export function PostCard({ post, index = 0 }: { post: Post; index?: number }) {
   return (
     <TiltWrap className="h-full">
-      <Link href={`/blog/${post.slug}`} className="card card-hover group flex h-full flex-col overflow-hidden">
+      <Link
+      href={`/blog/${post.slug}`}
+      data-cursor="Read"
+      className="card card-hover group flex h-full flex-col overflow-hidden"
+    >
         <div className="relative aspect-[4/5] overflow-hidden">
           <div className="zoom-img h-full w-full">
             <BlogCover slug={post.slug} index={index} />

@@ -111,9 +111,9 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
     is `100svh`; on phones it is content-sized (~680–700 px) so there is no dead band
     under the CTAs. Slide 2 distributes the extra height around the portrait.
   - No orange: gradients run deep red → brand red → bright red, grey + black/white secondary.
-- **Header scrim**: once the page is scrolled the fixed header paints an opaque, blurred
-  strip behind the logo and pill nav (`components/nav.tsx`), masked to fade out at its
-  bottom edge, so page content never shows through the navigation.
+- **Header**: a clean, low-opacity blurred rectangle (`bg-bg/45 backdrop-blur-lg`) behind the
+  logo, pill nav and theme toggle — content blurs as it passes underneath rather than being
+  hidden by a solid block.
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
   then remembers the visitor's choice in `localStorage`, with a 300 ms colour transition.
@@ -123,6 +123,26 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
   red only where it earns attention. Two shapes: `portrait` (4/5 card crop) and `wide`
   (2:1 post hero, swapped in at `sm`). New posts fall back to a monogram cover, so adding an
   entry to `content/posts.ts` never needs an image.
+- **Custom cursor** (`components/ui/cursor.tsx`): a red, shaded core leads and a ring trails
+  it, both easing toward the pointer. It is mounted once in `app/layout.tsx`, only activates
+  for fine pointers (hybrid touch laptops included) and never for `prefers-reduced-motion`;
+  otherwise the native cursor is untouched. Interactive elements open the ring, elements with
+  `data-cursor="Label"` print a label chip beside it (flipping left near the viewport edge),
+  text fields collapse it into a caret, and a press fires one expanding ring. Colours,
+  sizes and the press burst all live in the cursor block of `app/globals.css`.
+- **Cards lean toward the pointer.** `TiltWrap` (`components/cards.tsx`) rotates a card up to
+  ~9° on each axis with a slight lift, tracks the pointer through `--tilt-x` / `--tilt-y`
+  custom properties (so only a CSS transform has to run), and springs back on leave.
+  `.card:hover` adds a soft red halo — a red-tinted ring plus two red shadow layers, stronger
+  in dark mode. Reduced-motion visitors get the static card.
+- **Blog cover dimensions** (for designing replacements by hand): the card cover is
+  **400 × 500 px, 4:5 (0.8)** — design at 800 × 1000 or 1600 × 2000 for retina. It renders
+  `w-full` in the blog grid: 3-up from 1024 px (~374 px wide), 2-up from 640 px (~332 px),
+  1-up on phones (~340 px at a 390 px screen). The post-page hero reuses the same artwork as
+  a portrait 4:5 below `sm`, then switches to **1200 × 600 px, 2:1**, cropped from the centre
+  (`preserveAspectRatio="xMidYMid slice"`). Cards use the 24 px `--radius`, so keep type away
+  from the corners (~30 px inside on portrait, ~64 px on wide) and leave the bottom ~22 %
+  clear — the caption rail sits there.
 - **Cards never crop the artwork.** `components/ui/work-image.tsx` defaults to
   `object-contain` on a matted surface, so a brand-book page or a wide key visual is shown
   in full — nothing is cut or stretched. Frames adapt: brand-identity cards use a portrait

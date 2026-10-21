@@ -10,6 +10,7 @@ import {
   ScanLine,
 } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
+import { TiltWrap } from "@/components/cards";
 import { Reveal } from "@/components/ui/reveal";
 import { ConnectButton, CopyField } from "@/components/contact-actions";
 import { site, waLink } from "@/content/site";
@@ -75,6 +76,7 @@ export default async function ContactPage() {
       <section className="section-tight">
         <div className="shell grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
+            <TiltWrap strength={4} className="h-full">
             <div className="card flex h-full flex-col items-center justify-center gap-5 p-7 text-center">
               <div className="inline-flex items-center gap-2 rounded-full bg-surface-2 px-3 py-1.5 text-[10.5px] font-medium uppercase tracking-[0.16em] text-muted">
                 <ScanLine size={12} />
@@ -100,10 +102,12 @@ export default async function ContactPage() {
                 <ArrowUpRight size={14} />
               </a>
             </div>
+            </TiltWrap>
           </Reveal>
 
           <div className="flex flex-col gap-5">
             <Reveal delay={0.06}>
+              <TiltWrap strength={4}>
               <div className="card p-6">
                 <p className="eyebrow mb-2">Direct lines</p>
                 <CopyField
@@ -120,9 +124,11 @@ export default async function ContactPage() {
                 />
                 <CopyField label="Studio" value={site.location} icon={<MapPin size={13} />} />
               </div>
+              </TiltWrap>
             </Reveal>
 
             <Reveal delay={0.12}>
+              <TiltWrap strength={4}>
               <div className="card p-6">
                 <div className="flex items-center justify-between gap-4">
                   <p className="eyebrow">Studio hours</p>
@@ -139,9 +145,11 @@ export default async function ContactPage() {
                   ))}
                 </dl>
               </div>
+              </TiltWrap>
             </Reveal>
 
             <Reveal delay={0.18}>
+              <TiltWrap strength={4}>
               <div className="card p-6">
                 <p className="eyebrow mb-4">Elsewhere</p>
                 <div className="flex flex-wrap gap-2">
@@ -177,6 +185,7 @@ export default async function ContactPage() {
                   </span>
                 </a>
               </div>
+              </TiltWrap>
             </Reveal>
           </div>
         </div>

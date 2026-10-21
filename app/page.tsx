@@ -8,6 +8,7 @@ import { CtaBand } from "@/components/ui/cta-band";
 import { HeroObjectLazy } from "@/components/hero-object-lazy";
 import { CategoryCard, PostCard, ProjectCard, ServiceCard } from "@/components/cards";
 import { WorkImage } from "@/components/ui/work-image";
+import { TiltWrap } from "@/components/cards";
 import { CountUp } from "@/components/ui/count-up";
 import { categories, featuredProjects, projectsByCategory, testimonials } from "@/content/work";
 import { services } from "@/content/services";
@@ -107,8 +108,10 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <Reveal className="col-span-2">
+              <TiltWrap strength={4}>
               <Link
                 href="/work"
+                data-cursor="See all"
                 className="card card-hover group block overflow-hidden"
                 aria-label="Latest work — see all projects"
               >
@@ -145,6 +148,7 @@ export default function HomePage() {
                   </span>
                 </div>
               </Link>
+              </TiltWrap>
             </Reveal>
 
             {[
@@ -154,6 +158,7 @@ export default function HomePage() {
               { value: categories.length, suffix: "", decimals: 0, label: "Disciplines covered" },
             ].map((stat, index) => (
               <Reveal key={stat.label} delay={0.06 * index}>
+                <TiltWrap strength={5} className="h-full">
                 <div className="card flex h-full flex-col justify-between p-5">
                   <p className="display text-[2.15rem] leading-none tabular-nums">
                     <CountUp
@@ -165,6 +170,7 @@ export default function HomePage() {
                   </p>
                   <p className="mt-2 text-[12.5px] text-muted">{stat.label}</p>
                 </div>
+                </TiltWrap>
               </Reveal>
             ))}
           </div>
@@ -267,6 +273,7 @@ export default function HomePage() {
           <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
             {testimonials.map((item) => (
               <RevealItem key={item.name} className="h-full">
+                <TiltWrap strength={4} className="h-full">
                 <figure className="card flex h-full flex-col p-6">
                   <Quote size={22} className="text-red" strokeWidth={1.6} />
                   <blockquote className="mt-4 flex-1 text-[14.5px] leading-relaxed text-ink/90">
@@ -282,6 +289,7 @@ export default function HomePage() {
                     </span>
                   </figcaption>
                 </figure>
+                </TiltWrap>
               </RevealItem>
             ))}
           </RevealGroup>

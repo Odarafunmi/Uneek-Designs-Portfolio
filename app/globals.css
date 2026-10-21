@@ -339,6 +339,33 @@
     background: var(--surface);
     border: 1px solid var(--border);
     box-shadow: var(--shadow-card);
+    transition:
+      box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 300ms ease;
+  }
+
+  /* Pointer-driven tilt, applied by <TiltWrap> */
+  .tilt-wrap {
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
+      scale(var(--tilt-lift, 1));
+    transform-style: preserve-3d;
+    transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 0ms;
+  }
+
+  .tilt-wrap[data-tilting="true"] {
+    transition-duration: 110ms;
+    transition-timing-function: ease-out;
+  }
+
+  /* Every card picks up a soft red halo on hover — no colour shift, just light. */
+  .card:hover {
+    border-color: color-mix(in oklab, var(--red) 30%, var(--border));
+    box-shadow:
+      var(--shadow-card),
+      0 0 0 1px rgba(238, 3, 3, 0.14),
+      0 18px 44px -26px rgba(238, 3, 3, 0.55),
+      0 0 32px rgba(238, 3, 3, 0.14);
   }
 
   .card-hover {
@@ -351,8 +378,29 @@
 
   .card-hover:hover {
     transform: translateY(-6px);
-    box-shadow: var(--shadow-lift);
-    border-color: var(--border-strong);
+    border-color: color-mix(in oklab, var(--red) 34%, var(--border));
+    box-shadow:
+      var(--shadow-lift),
+      0 0 0 1px rgba(238, 3, 3, 0.18),
+      0 22px 52px -26px rgba(238, 3, 3, 0.6),
+      0 0 40px rgba(238, 3, 3, 0.18);
+  }
+
+  /* Darker pages need a touch more bloom to read as light rather than dirt. */
+  [data-theme="dark"] .card:hover {
+    box-shadow:
+      var(--shadow-card),
+      0 0 0 1px rgba(255, 59, 59, 0.22),
+      0 18px 44px -24px rgba(238, 3, 3, 0.6),
+      0 0 40px rgba(238, 3, 3, 0.22);
+  }
+
+  [data-theme="dark"] .card-hover:hover {
+    box-shadow:
+      var(--shadow-lift),
+      0 0 0 1px rgba(255, 59, 59, 0.26),
+      0 22px 52px -24px rgba(238, 3, 3, 0.65),
+      0 0 50px rgba(238, 3, 3, 0.26);
   }
 
   .card-hover .zoom-img {
@@ -845,6 +893,198 @@
   animation: pulse-ring 2.4s ease-out infinite;
 }
 
+
+/* ---------------------------------------------------------------------------
+   Custom cursor — a glossy red core with a trailing ring
+--------------------------------------------------------------------------- */
+
+/* Applied by the cursor component only on fine pointers with motion allowed. */
+html.cursor-custom,
+html.cursor-custom * {
+  cursor: none !important;
+}
+
+/* Text fields would feel broken without a caret; the cursor draws its own. */
+html.cursor-custom input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="range"]),
+html.cursor-custom textarea {
+  cursor: text !important;
+}
+
+.cursor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  contain: layout style;
+  /* Only shown once the component confirms a real pointing device. */
+  display: none;
+}
+
+html.cursor-custom .cursor-layer {
+  display: block;
+}
+
+/* --- core: the leading dot, shaded like a small red sphere ---------------- */
+.cursor-core {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 180ms ease, width 220ms ease, height 220ms ease,
+    border-radius 220ms ease;
+  background:
+    radial-gradient(120% 120% at 30% 24%, #ff9a9a 0%, #ff4a4a 26%, #ee0303 58%, #960000 100%);
+  box-shadow:
+    inset 0 -1px 2px rgba(0, 0, 0, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    0 0 0 1px rgba(120, 0, 0, 0.35),
+    0 3px 8px rgba(238, 3, 3, 0.45),
+    0 0 18px rgba(238, 3, 3, 0.35);
+}
+
+/* specular highlight, so it reads as a lit sphere rather than a flat dot */
+.cursor-core::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 5px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  filter: blur(0.6px);
+}
+
+.cursor-core[data-visible="true"] {
+  opacity: 1;
+}
+
+.cursor-core[data-mode="hover"] {
+  width: 10px;
+  height: 10px;
+}
+
+/* over text fields it becomes a slim caret */
+.cursor-core[data-mode="text"] {
+  width: 2px;
+  height: 22px;
+  border-radius: 2px;
+  background: var(--red);
+  box-shadow: 0 0 10px rgba(238, 3, 3, 0.55);
+}
+
+.cursor-core[data-mode="text"]::after {
+  display: none;
+}
+
+.cursor-core[data-pressed="true"] {
+  box-shadow:
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    0 0 0 1px rgba(120, 0, 0, 0.4),
+    0 1px 4px rgba(238, 3, 3, 0.4),
+    0 0 10px rgba(238, 3, 3, 0.3);
+}
+
+/* --- ring: trails the core, opens over anything interactive ---------------- */
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  opacity: 0;
+  will-change: transform;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid rgba(238, 3, 3, 0.55);
+  background: radial-gradient(circle at 50% 50%, rgba(238, 3, 3, 0.1), transparent 70%);
+  box-shadow:
+    0 0 12px rgba(238, 3, 3, 0.22),
+    inset 0 0 8px rgba(238, 3, 3, 0.16);
+  /* width/height animate instead of transform, because transform is driven by JS */
+  transition: opacity 200ms ease, border-color 220ms ease, background-color 220ms ease,
+    box-shadow 220ms ease, border-radius 220ms ease, border-width 220ms ease;
+}
+
+.cursor-ring[data-visible="true"] {
+  opacity: 1;
+}
+
+.cursor-ring[data-mode="hover"] {
+  border-color: rgba(238, 3, 3, 0.75);
+  background: radial-gradient(circle at 50% 50%, rgba(238, 3, 3, 0.16), rgba(238, 3, 3, 0.04) 70%);
+  box-shadow:
+    0 0 20px rgba(238, 3, 3, 0.28),
+    inset 0 0 12px rgba(238, 3, 3, 0.2);
+}
+
+.cursor-ring[data-mode="text"] {
+  opacity: 0;
+}
+
+.cursor-ring[data-pressed="true"] {
+  border-color: rgba(238, 3, 3, 0.95);
+  box-shadow:
+    0 0 26px rgba(238, 3, 3, 0.35),
+    inset 0 0 14px rgba(238, 3, 3, 0.25);
+}
+
+/* --- label printed beside the ring ---------------------------------------- */
+.cursor-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #fff;
+  background: var(--red);
+  box-shadow: 0 4px 14px rgba(238, 3, 3, 0.35);
+  opacity: 0;
+  transform-origin: left center;
+  transition: opacity 180ms ease;
+  will-change: transform;
+}
+
+.cursor-label[data-side="left"] {
+  transform-origin: right center;
+}
+
+.cursor-label[data-show="true"] {
+  opacity: 1;
+}
+
+/* --- press burst ---------------------------------------------------------- */
+.cursor-burst {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(238, 3, 3, 0.6);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Keep the whole effect out of the way on touch devices. */
+@media (pointer: coarse) {
+  .cursor-layer {
+    display: none;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Reduced motion
 --------------------------------------------------------------------------- */
@@ -860,5 +1100,9 @@
 
   .marquee {
     animation: none;
+  }
+
+  .cursor-layer {
+    display: none;
   }
 }
