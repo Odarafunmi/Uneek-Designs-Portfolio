@@ -620,7 +620,10 @@
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 23cqw;
-    line-height: 0.8;
+    /* a full line box: any tighter and the container slices the glyph tops,
+       which reads as a hard horizontal rule behind the portrait */
+    line-height: 1.05;
+    padding-block: 0.04em;
     letter-spacing: -0.05em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -629,6 +632,9 @@
     opacity: 0.07;
     user-select: none;
     pointer-events: none;
+    /* soft ends, so the word melts into the page instead of stopping flat */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 86%, transparent 99%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 86%, transparent 99%);
   }
 
   [data-theme="dark"] .ghost-word {
@@ -691,7 +697,6 @@
      page, with a red glow burning behind the head and falling over the shoulders. */
   .portrait-stage {
     position: relative;
-    isolation: isolate;
   }
 
   .portrait-stage::before {
@@ -755,20 +760,6 @@
 
   [data-theme="dark"] .portrait-photo {
     filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.55));
-  }
-
-  .portrait-light {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    /* red light falling from the glow above, over the shoulders */
-    background: radial-gradient(70% 44% at 50% 2%, rgba(255, 59, 59, 0.34), transparent 70%);
-    mix-blend-mode: soft-light;
-  }
-
-  [data-theme="dark"] .portrait-light {
-    background: radial-gradient(70% 44% at 50% 2%, rgba(255, 59, 59, 0.3), transparent 70%);
   }
 
   /* ---------------------------------------------------------------------------

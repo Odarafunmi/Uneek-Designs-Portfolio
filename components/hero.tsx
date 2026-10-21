@@ -267,7 +267,7 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
     <div className="relative flex flex-1 flex-col">
       <div className="shell relative flex flex-1 flex-col">
         {/* Ghost word behind the portrait — held to the same gutters as the rest */}
-        <div className="pointer-events-none absolute inset-x-6 top-[12%] z-0 overflow-hidden md:inset-x-12">
+        <div className="pointer-events-none absolute inset-x-6 top-[9%] z-0 md:inset-x-12">
           <div className="ghost-fit">
             <p className="ghost-word">{site.owner}</p>
           </div>
@@ -293,8 +293,6 @@ function SlideTwo({ reduced }: { reduced: boolean }) {
                   className="portrait-photo"
                 />
               </div>
-              {/* the red light that sits over the shoulders */}
-              <div className="portrait-light" aria-hidden />
             </div>
 
             {/* floating discipline tags */}
