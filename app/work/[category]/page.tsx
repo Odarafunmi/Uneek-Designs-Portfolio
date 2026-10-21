@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { PageHeader } from "@/components/ui/page-header";
 import { CtaBand } from "@/components/ui/cta-band";
 import { ProjectCard } from "@/components/cards";
-import { CoverArt } from "@/components/art";
+import { WorkImage } from "@/components/ui/work-image";
 import { RevealGroup, Reveal, RevealItem } from "@/components/ui/reveal";
 import { categories, projectsByCategory } from "@/content/work";
 
@@ -49,13 +49,26 @@ export default async function CategoryPage({
         breadcrumb={[{ href: "/work", label: "Work" }, { href: `/work/${category.slug}`, label: category.name }]}
       >
         <Reveal delay={0.2}>
-          <Link
-            href="/work"
-            className="mt-8 inline-flex items-center gap-2 text-[12.5px] font-medium text-muted transition-colors hover:text-red"
-          >
-            <ArrowLeft size={14} />
-            All categories
-          </Link>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link
+              href="/work"
+              className="inline-flex items-center gap-2 text-[12.5px] font-medium text-muted transition-colors hover:text-red"
+            >
+              <ArrowLeft size={14} />
+              All categories
+            </Link>
+            {category.driveUrl && (
+              <a
+                href={category.driveUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-red-ink underline decoration-red underline-offset-4"
+              >
+                Check out full case on Drive
+                <ArrowUpRight size={14} />
+              </a>
+            )}
+          </div>
         </Reveal>
       </PageHeader>
 
@@ -64,7 +77,11 @@ export default async function CategoryPage({
           <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((project, index) => (
               <RevealItem key={project.slug}>
-                <ProjectCard project={project} index={index} />
+                <ProjectCard
+                  project={project}
+                  index={index}
+                  aspect={category.slug === "branding" ? "aspect-[4/5]" : "aspect-[4/3]"}
+                />
               </RevealItem>
             ))}
           </RevealGroup>
@@ -83,8 +100,13 @@ export default async function CategoryPage({
                   href={`/work/${other.slug}`}
                   className="group flex items-center gap-4 rounded-2xl border border-line p-3 transition-colors hover:border-line-strong"
                 >
-                  <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
-                    <CoverArt variant={other.art} label={other.name} />
+                  <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-surface">
+                    <WorkImage
+                      src={other.cover}
+                      variant={other.art}
+                      label={other.name}
+                      sizes="56px"
+                    />
                   </span>
                   <span>
                     <span className="block text-[14px] font-medium tracking-[-0.01em]">

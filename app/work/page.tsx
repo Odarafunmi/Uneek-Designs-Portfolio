@@ -29,13 +29,17 @@ export default function WorkPage() {
 
       <section className="section-tight">
         <div className="shell">
-          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((category, index) => (
-              <RevealItem key={category.slug}>
+              <RevealItem
+                key={category.slug}
+                className={index % 3 === 0 ? "sm:col-span-2 lg:col-span-2" : "sm:col-span-2 lg:col-span-1"}
+              >
                 <CategoryCard
                   category={category}
                   count={projectsByCategory(category.slug).length}
                   index={index}
+                  feature={index % 3 === 0}
                 />
               </RevealItem>
             ))}
@@ -76,9 +80,13 @@ export default function WorkPage() {
               </div>
 
               <RevealGroup className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {items.map((project, index) => (
+                {items.slice(0, 4).map((project, index) => (
                   <RevealItem key={project.slug}>
-                    <ProjectCard project={project} index={index} />
+                    <ProjectCard
+                      project={project}
+                      index={index}
+                      aspect={category.slug === "branding" ? "aspect-[4/5]" : "aspect-[4/3]"}
+                    />
                   </RevealItem>
                 ))}
               </RevealGroup>

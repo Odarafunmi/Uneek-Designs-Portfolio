@@ -6,67 +6,76 @@ const drive = (id: string, width = 1400) =>
 
 const FOLDER = "https://drive.google.com/drive/folders/";
 
+const FOLDER_BRAND = FOLDER + "1sj-WXj1PkQghNWiB39m0aP0iNgOyr5yS";
+const FOLDER_SOCIAL = FOLDER + "1tx9APLxygXCR1cshJA2wDty1oYjX1-p2";
+const FOLDER_PRODUCT = FOLDER + "1sizpOS4zvDxJ0RJrkWKPu8-EL3zfM4oi";
+const FOLDER_PRINT = FOLDER + "1kF9eUfe4ij4_KnvK_Z-IA2Q_I0bXGF7I";
+
 export const categories: Category[] = [
   {
     slug: "branding",
-    name: "Branding",
+    name: "Brand Identity Designs",
     tagline: "Identities with a point of view",
     blurb:
       "Logos, type systems, colour and the guidelines that keep everything looking like it came from the same brain.",
     art: "type",
-    cover: drive("1Ef383AV_v8Hr4n3VBrQlZTIv6aFvFVVn"),
+    cover: drive("1pbfWZW8iuodBNHPFXagvqcZ_ZNH5Um0Q"),
+    driveUrl: FOLDER_BRAND,
   },
   {
     slug: "social-media",
-    name: "Social Media",
+    name: "Social Media Designs",
     tagline: "Feeds that earn the scroll",
     blurb:
       "Template systems, campaign frames and content design built to be posted every week without losing the plot.",
     art: "cards",
-    cover: drive("1fqtchhAjTMYBEbFCPoLfpNdjz_GRSdLI"),
+    cover: drive("1TCHc_VkvTi8DqyOIV1s4fYih7ucyzu8p"),
+    driveUrl: FOLDER_SOCIAL,
   },
   {
     slug: "product-adverts",
-    name: "Product Adverts",
+    name: "Product Advert Designs",
     tagline: "Objects, made irresistible",
     blurb:
       "Product key art, packaging mockups and ad sets that turn a catalogue photo into something people save.",
     art: "bottle",
-    cover: drive("1xBUbgGWaCuDXKxnC4UlrhiBgqgL1rFeA"),
+    cover: drive("1sRGmgylCzSTKb0FyqPWOq4SM_LGSH2Fh"),
+    driveUrl: FOLDER_PRODUCT,
   },
   {
     slug: "print",
-    name: "Print",
+    name: "Print Designs",
     tagline: "Pieces you can hold",
     blurb:
-      "Flyers, billboards, newspapers and packaging — print work built with the same eye as the screen stuff.",
+      "Menus, flyers, billboards, newspapers and packaging — print work built with the same eye as the screen stuff.",
     art: "poster",
     cover: drive("16GGZyD3O-sCxNAUgOlfjAlmCL2WRzhG3"),
+    driveUrl: FOLDER_PRINT,
   },
 ];
 
 export const projects: Project[] = [
-  /* ---------------------------------------------------------------- Branding */
   {
-    slug: "kiisi-collections",
+    slug: "zyntra-fitness",
     category: "branding",
-    title: "Kiisi Collections",
-    client: "Kiisi Collections",
-    tagline: "A fashion label dressed in its own system",
+    title: "Zyntra Fitness",
+    client: "Zyntra Fitness",
+    tagline: "A gym brand built to move",
     description:
-      "A full brand book for Kiisi Collections: the mark, the palette, the type scale and the application rules that keep a growing label consistent from lookbook to hangtag. The guidelines were built page by page so the team can hand them to any printer or designer.",
-    year: 2026,
-    deliverables: ["Brand strategy", "Wordmark", "Brand guidelines", "Print applications"],
-    art: "type",
-    cover: drive("1Ef383AV_v8Hr4n3VBrQlZTIv6aFvFVVn"),
+      "A brand book for Zyntra Fitness covering the mark, the energetic colour system and the type treatment, then showing it all in motion across apparel, signage and social.",
+    year: 2025,
+    deliverables: ["Brand book", "Wordmark", "Colour & type", "Apparel"],
+    art: "grid",
+    cover: drive("1pbfWZW8iuodBNHPFXagvqcZ_ZNH5Um0Q"),
     gallery: [
-      drive("12cOrHOdgdvlOqociiKwqaPmDHaS5I5jA", 1200),
-      drive("1cLfgezPM6MiDElWvSIyF67Ow-qL0YdcN", 1200),
-      drive("1nTT-uHiiOI-gxS53OeOe4Xb4WiUfPrjF", 1200),
+      drive("1LD1JAwPmpm10MadnSB1Ujtz-_9RFUGTD", 1200),
+      drive("1r7GBGaMBZgzyRC4O2-sfPDDIicc6j5aL", 1200),
+      drive("1c6IWo1501LqCwcNETccGQdsJv02ve4Zj", 1200),
     ],
-    driveUrl: FOLDER + "1RwkEzuH9qV3uPd0XSb-5NZ5HdZAQ4voJ",
+    driveUrl: FOLDER + "1ns00xKStpadLNUw-iTC6_urwkwQuIX-R",
     featured: true,
   },
+  /* ---------------------------------------------------------------- Branding */
   {
     slug: "uneek-rebrand",
     category: "branding",
@@ -87,23 +96,23 @@ export const projects: Project[] = [
     driveUrl: FOLDER + "1kuCAfJWO0z8I498-uho5peSYnPeRDXTf",
   },
   {
-    slug: "zyntra-fitness",
+    slug: "kiisi-collections",
     category: "branding",
-    title: "Zyntra Fitness",
-    client: "Zyntra Fitness",
-    tagline: "A gym brand built to move",
+    title: "Kiisi Collections",
+    client: "Kiisi Collections",
+    tagline: "A fashion label dressed in its own system",
     description:
-      "A brand book for Zyntra Fitness covering the mark, the energetic colour system and the type treatment, then showing it all in motion across apparel, signage and social.",
-    year: 2025,
-    deliverables: ["Brand book", "Wordmark", "Colour & type", "Apparel"],
-    art: "grid",
-    cover: drive("1sPbli1BPBxBIqgw2mhMdUSV6nlSP9jhd"),
+      "A full brand book for Kiisi Collections: the mark, the palette, the type scale and the application rules that keep a growing label consistent from lookbook to hangtag. The guidelines were built page by page so the team can hand them to any printer or designer.",
+    year: 2026,
+    deliverables: ["Brand strategy", "Wordmark", "Brand guidelines", "Print applications"],
+    art: "type",
+    cover: drive("1Ef383AV_v8Hr4n3VBrQlZTIv6aFvFVVn"),
     gallery: [
-      drive("1LD1JAwPmpm10MadnSB1Ujtz-_9RFUGTD", 1200),
-      drive("1r7GBGaMBZgzyRC4O2-sfPDDIicc6j5aL", 1200),
-      drive("1c6IWo1501LqCwcNETccGQdsJv02ve4Zj", 1200),
+      drive("12cOrHOdgdvlOqociiKwqaPmDHaS5I5jA", 1200),
+      drive("1cLfgezPM6MiDElWvSIyF67Ow-qL0YdcN", 1200),
+      drive("1nTT-uHiiOI-gxS53OeOe4Xb4WiUfPrjF", 1200),
     ],
-    driveUrl: FOLDER + "1ns00xKStpadLNUw-iTC6_urwkwQuIX-R",
+    driveUrl: FOLDER + "1RwkEzuH9qV3uPd0XSb-5NZ5HdZAQ4voJ",
   },
 
   /* ------------------------------------------------------------ Social media */
@@ -371,6 +380,20 @@ export const projects: Project[] = [
 
   /* ------------------------------------------------------------------- Print */
   {
+    slug: "food-menu",
+    category: "print",
+    title: "Food Menu",
+    client: "Restaurant",
+    tagline: "A menu designed to be read across a table",
+    description:
+      "A printed food menu built around appetite: strong section breaks, prices that line up and enough contrast to stay legible in low restaurant light.",
+    year: 2025,
+    deliverables: ["Menu layout", "Print artwork"],
+    art: "poster",
+    cover: drive("16GGZyD3O-sCxNAUgOlfjAlmCL2WRzhG3"),
+    driveUrl: FOLDER_PRINT,
+  },
+  {
     slug: "church-flyer-print",
     category: "print",
     title: "Church Flyer — Print",
@@ -381,13 +404,12 @@ export const projects: Project[] = [
     year: 2025,
     deliverables: ["A5 flyers", "Large format"],
     art: "poster",
-    cover: drive("16GGZyD3O-sCxNAUgOlfjAlmCL2WRzhG3"),
+    cover: drive("1bKV7Qhy0PZHQb4L5PBU3qCDQeYqbEUJj"),
     gallery: [
-      drive("1bKV7Qhy0PZHQb4L5PBU3qCDQeYqbEUJj", 1200),
       drive("1_wT8X_g4pzVn7Tf6aJdf-A8W2U7fKaCa", 1200),
       drive("1fEneiVzwNRcTH5KIWn8ADVSKgLgX_10d", 1200),
     ],
-    driveUrl: FOLDER + "1kF9eUfe4ij4_KnvK_Z-IA2Q_I0bXGF7I",
+    driveUrl: FOLDER_PRINT,
   },
   {
     slug: "royal-packages",

@@ -18,8 +18,10 @@ export type Category = {
   tagline: string;
   blurb: string;
   art: ArtVariant;
-  /** Real cover image in `public/` — falls back to the generated art when absent. */
+  /** Real cover image — falls back to the generated art when absent. */
   cover?: string;
+  /** Folder holding the full case for this discipline. */
+  driveUrl?: string;
 };
 
 export type Project = {

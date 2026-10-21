@@ -63,10 +63,13 @@ export function CategoryCard({
   category,
   count,
   index = 0,
+  feature = false,
 }: {
   category: Category;
   count: number;
   index?: number;
+  /** Larger bento tile — wider media, bigger type. */
+  feature?: boolean;
 }) {
   return (
     <TiltWrap>
@@ -74,8 +77,12 @@ export function CategoryCard({
         href={`/work/${category.slug}`}
         className="card card-hover group flex h-full flex-col overflow-hidden"
       >
-        <div className="relative aspect-[5/4] overflow-hidden">
-          <div className="zoom-img relative h-full w-full">
+        <div
+          className={`relative overflow-hidden bg-surface ${
+            feature ? "aspect-[16/10]" : "aspect-[4/3]"
+          }`}
+        >
+          <div className="zoom-img relative h-full w-full p-2">
             <WorkImage
               src={category.cover}
               variant={category.art}
@@ -93,7 +100,7 @@ export function CategoryCard({
         </div>
         <div className="flex flex-1 flex-col justify-between gap-4 p-5">
           <div>
-            <h3 className="h3 min-w-0">{category.name}</h3>
+            <h3 className={feature ? "h2 min-w-0" : "h3 min-w-0"}>{category.name}</h3>
             <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{category.tagline}</p>
             <p className="mt-3 text-[10.5px] font-medium uppercase tracking-[0.14em] text-muted">
               {count} {count === 1 ? "project" : "projects"}
@@ -111,14 +118,17 @@ export function CategoryCard({
 export function ProjectCard({
   project,
   index = 0,
+  aspect = "aspect-[4/3]",
 }: {
   project: Project;
   index?: number;
+  /** Media frame — portrait suits brand-book pages, landscape suits product art. */
+  aspect?: string;
 }) {
   const content = (
     <>
-      <div className="relative aspect-[4/5] overflow-hidden">
-        <div className="zoom-img relative h-full w-full">
+      <div className={`relative ${aspect} overflow-hidden bg-surface`}>
+        <div className="zoom-img relative h-full w-full p-2">
           <WorkImage
             src={project.cover}
             variant={project.art}

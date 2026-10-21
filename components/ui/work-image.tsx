@@ -19,14 +19,17 @@ export function WorkImage({
   label,
   sizes,
   seed,
+  fit = "contain",
   priority = false,
-  className = "object-cover",
+  className,
 }: {
   src?: string;
   variant: ArtVariant;
   label: string;
   sizes: string;
   seed?: number;
+  /** `contain` shows the whole picture (no cropping), `cover` fills the frame. */
+  fit?: "contain" | "cover";
   priority?: boolean;
   className?: string;
 }) {
@@ -43,7 +46,7 @@ export function WorkImage({
       priority={priority}
       sizes={sizes}
       onError={() => setFailed(true)}
-      className={className}
+      className={className ?? (fit === "contain" ? "object-contain" : "object-cover")}
     />
   );
 }

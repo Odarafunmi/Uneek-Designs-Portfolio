@@ -101,7 +101,11 @@ export default async function ProjectPage({
 
         <Reveal>
           <div className="shell">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] border border-line">
+            <div
+              className={`relative overflow-hidden rounded-[28px] border border-line bg-surface ${
+                project.category === "branding" ? "aspect-[4/5] sm:aspect-[16/10]" : "aspect-[16/10]"
+              }`}
+            >
               <WorkImage
                 src={project.cover}
                 variant={project.art}

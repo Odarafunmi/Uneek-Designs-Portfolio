@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { CtaBand } from "@/components/ui/cta-band";
 import { HeroObjectLazy } from "@/components/hero-object-lazy";
 import { CategoryCard, PostCard, ProjectCard, ServiceCard } from "@/components/cards";
-import { CoverArt } from "@/components/art";
+import { WorkImage } from "@/components/ui/work-image";
 import { CountUp } from "@/components/ui/count-up";
 import { categories, featuredProjects, projectsByCategory, testimonials } from "@/content/work";
 import { services } from "@/content/services";
@@ -101,26 +101,44 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <Reveal className="col-span-2">
-              <div className="card relative overflow-hidden">
-                <div className="relative aspect-[16/9]">
-                  <CoverArt variant="type" label="Uneek" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                  <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4">
-                    <div>
-                      <p className="text-[10px] uppercase tracking-[0.18em] text-white/70">
-                        Currently
-                      </p>
-                      <p className="mt-1 font-display text-lg font-medium tracking-[-0.02em] text-white">
-                        Booking Nov – Dec
-                      </p>
+              <Link
+                href="/work"
+                className="card card-hover group block overflow-hidden"
+                aria-label="Latest work — see all projects"
+              >
+                <div className="grid aspect-[16/9] grid-cols-3 grid-rows-2 gap-1 bg-surface p-1">
+                  {featured.slice(0, 3).map((project, i) => (
+                    <div
+                      key={project.slug}
+                      className={`relative overflow-hidden rounded-xl bg-bg ${
+                        i === 0 ? "col-span-2 row-span-2" : ""
+                      }`}
+                    >
+                      <WorkImage
+                        src={project.cover}
+                        variant={project.art}
+                        label={project.title}
+                        seed={i}
+                        sizes="(min-width: 768px) 40vw, 60vw"
+                      />
                     </div>
-                    <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur-md">
-                      <span className="availability-dot" />
-                      Open
-                    </span>
-                  </div>
+                  ))}
                 </div>
-              </div>
+                <div className="flex items-center justify-between gap-4 px-5 py-4">
+                  <div>
+                    <p className="eyebrow">Latest from the studio</p>
+                    <p className="mt-1.5 text-[13px] text-muted">
+                      {featured
+                        .slice(0, 3)
+                        .map((p) => p.title)
+                        .join(" · ")}
+                    </p>
+                  </div>
+                  <span className="arrow-badge shrink-0 border-line-strong text-ink transition-colors group-hover:border-red group-hover:text-red">
+                    <ArrowUpRight size={16} />
+                  </span>
+                </div>
+              </Link>
             </Reveal>
 
             {[
@@ -165,7 +183,7 @@ export default function HomePage() {
                 <span className="text-muted">worth a look.</span>
               </>
             }
-            copy="A fashion label, a fragrance campaign and a year of social — three ways the studio builds a system, not just a logo."
+            copy="A gym identity, a fragrance campaign and a year of social — three ways the studio builds a system, not just a logo."
             action={{ href: "/work", label: "All work" }}
           />
 

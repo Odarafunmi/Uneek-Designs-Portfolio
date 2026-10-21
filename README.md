@@ -117,6 +117,11 @@ Tokens live at the top of `app/globals.css` and are exposed to Tailwind 4 throug
 - **Theme** is driven by `data-theme="light|dark"` on `<html>`, set before paint by an
   inline script (`themeScript`) so there is no flash. Defaults to the system setting,
   then remembers the visitor's choice in `localStorage`, with a 300 ms colour transition.
+- **Cards never crop the artwork.** `components/ui/work-image.tsx` defaults to
+  `object-contain` on a matted surface, so a brand-book page or a wide key visual is shown
+  in full — nothing is cut or stretched. Frames adapt: brand-identity cards use a portrait
+  `4/5`, product/social art uses `4/3`, and the category grid on `/work` is a bento
+  (2-wide feature tiles alternating with 1-wide tiles).
 - **Real work comes from the studio's Google Drive** (`My Portfolio`). `content/work.ts`
   declares each project with a `cover`, an optional `gallery` and a `driveUrl`, using the
   public `https://drive.google.com/thumbnail?id=…&sz=w1400` endpoint — no build-time fetch,
