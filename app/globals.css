@@ -170,6 +170,21 @@
     }
   }
 
+  /* Card rows justify themselves: the track count comes from the space left in
+     the shell, and auto-fit collapses the unused track, so two cards stretch to
+     the full reading width instead of leaving a hole. */
+  .card-grid {
+    display: grid;
+    gap: var(--card-gap, 1.5rem);
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(
+        min(100%, max(15rem, calc((100% - 2 * var(--card-gap, 1.5rem)) / 3))),
+        1fr
+      )
+    );
+  }
+
   .section {
     padding-block: 112px;
   }
@@ -554,11 +569,19 @@
     background: var(--grad-red-deep);
   }
 
+  /* The word hugs the page gutters: its container is the shell's content box,
+     so the type scales to exactly that width instead of the viewport. */
+  .poster-fit {
+    container-type: inline-size;
+  }
+
   /* Giant word anchored to the bottom of the poster, clipped and dissolved */
   .poster-word {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(3.4rem, 21vw, 30rem);
+    /* ~4.41x the font size per word; 22.6cqw makes it fill the content width */
+    font-size: clamp(2.2rem, 16vw, 16.3rem);
+    font-size: 22.6cqw;
     line-height: 0.72;
     letter-spacing: -0.05em;
     text-transform: uppercase;

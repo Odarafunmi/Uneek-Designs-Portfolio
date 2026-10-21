@@ -200,7 +200,7 @@ export default function HomePage() {
             action={{ href: "/work", label: "All work" }}
           />
 
-          <RevealGroup className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="mt-16 card-grid">
             {featured.map((project, index) => (
               <RevealItem key={project.slug}>
                 <ProjectCard project={project} index={index} />
@@ -243,7 +243,7 @@ export default function HomePage() {
             copy="Pick a package, edit the WhatsApp message, send. Each one includes the files, the systems and a handover you can actually use."
             action={{ href: "/services", label: "Full pricing" }}
           />
-          <RevealGroup className="mt-12 grid items-stretch gap-5 md:grid-cols-3">
+          <RevealGroup className="mt-12 card-grid items-stretch [--card-gap:1.25rem]">
             {services.map((service) => (
               <RevealItem key={service.slug} className="h-full">
                 <ServiceCard service={service} />
@@ -270,7 +270,7 @@ export default function HomePage() {
             eyebrow="Kind words"
             title="What founders say after handover."
           />
-          <RevealGroup className="mt-16 grid gap-6 md:grid-cols-3">
+          <RevealGroup className="mt-16 card-grid">
             {testimonials.map((item) => (
               <RevealItem key={item.name} className="h-full">
                 <TiltWrap strength={4} className="h-full">
@@ -312,7 +312,7 @@ export default function HomePage() {
             copy="Occasional writing about what actually happens between the brief and the launch."
             action={{ href: "/blog", label: "Read the blog" }}
           />
-          <RevealGroup className="mt-16 grid gap-6 md:grid-cols-3">
+          <RevealGroup className="mt-16 card-grid">
             {posts.map((post, index) => (
               <RevealItem key={post.slug}>
                 <PostCard post={post} index={index} />

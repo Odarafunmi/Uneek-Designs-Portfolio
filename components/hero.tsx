@@ -233,16 +233,21 @@ function SlideOne({ rotation, reduced }: { rotation: number; reduced: boolean })
         </div>
       </div>
 
-      {/* The poster word, clipped by the base of the hero */}
+      {/* The poster word, clipped by the base of the hero — held inside the
+          page gutters so its edges line up with the headline above it */}
       <div className="relative z-10 mt-8 select-none md:mt-auto">
-        <motion.p
-          initial={reduced ? undefined : { y: 60, opacity: 0 }}
-          animate={reduced ? undefined : { y: 0, opacity: 1 }}
-          transition={{ duration: 0.95, ease: EASE, delay: 0.1 }}
-          className="poster-word translate-y-0 md:translate-y-[6%]"
-        >
-          Designer
-        </motion.p>
+        <div className="shell">
+          <div className="poster-fit">
+            <motion.p
+              initial={reduced ? undefined : { y: 60, opacity: 0 }}
+              animate={reduced ? undefined : { y: 0, opacity: 1 }}
+              transition={{ duration: 0.95, ease: EASE, delay: 0.1 }}
+              className="poster-word translate-y-0 md:translate-y-[6%]"
+            >
+              Designer
+            </motion.p>
+          </div>
+        </div>
       </div>
     </div>
   );

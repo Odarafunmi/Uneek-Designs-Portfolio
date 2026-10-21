@@ -74,7 +74,7 @@ export default function ServicesPage() {
 
       <section className="section-tight">
         <div className="shell">
-          <RevealGroup className="grid items-stretch gap-5 md:grid-cols-3">
+          <RevealGroup className="card-grid items-stretch [--card-gap:1.25rem]">
             {services.map((service) => (
               <RevealItem key={service.slug} className="h-full">
                 <TiltWrap strength={4} className="h-full">
